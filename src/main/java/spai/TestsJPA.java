@@ -13,7 +13,7 @@ import spai.User;
 public class TestsJPA {
 
     public static void main(String[] args) {
-        //Se borrar y se crean las tablas 
+        //Se borrar y se crean las tablas  
         Map<String, String> properties = new HashMap<>();
         properties.put(PersistenceUnitProperties.DDL_GENERATION,
                 PersistenceUnitProperties.DROP_AND_CREATE);
