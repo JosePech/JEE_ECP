@@ -22,8 +22,8 @@ public class Tema {
     }
     
     public Tema(String nombre, String pregunta) {
-        this.nombre = nombre;
-        this.pregunta = pregunta;
+        this.setNombre(nombre);
+        this.setPregunta(pregunta);
     }
 
     public void setId(Integer id){
@@ -35,6 +35,8 @@ public class Tema {
     }
     
     public void setNombre(String nombre){
+        assert(nombre != null);
+        assert(nombre.length() > 0);
         this.nombre = nombre;
     }
     
@@ -43,11 +45,29 @@ public class Tema {
     }
     
     public void setPregunta(String pregunta){
+        assert(pregunta != null);
+        assert(pregunta.length() > 0);
         this.pregunta = pregunta;
     }
     
     public String getPregunta(){
         return this.pregunta;
+    }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + getPregunta().hashCode();
+        result = prime * result + getNombre().hashCode();
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        assert (obj instanceof Tema);
+        Tema cast = (Tema)obj;
+        return cast.getId() == this.id;
     }
 
 }
