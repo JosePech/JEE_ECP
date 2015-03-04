@@ -18,6 +18,14 @@ public class Tema {
     public static final String PREGUNTA = "PREGUNTA";
     private String pregunta;
     
+    public Tema(){        
+    }
+    
+    public Tema(String nombre, String pregunta) {
+        this.nombre = nombre;
+        this.pregunta = pregunta;
+    }
+
     public void setId(Integer id){
         this.id = id;
     }
