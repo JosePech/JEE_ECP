@@ -1,4 +1,4 @@
-package persistencia.models.daos.jdbc;
+package persistencia.models.daos.jpa;
 
 import static org.junit.Assert.*;
 
@@ -9,18 +9,17 @@ import org.junit.Test;
 
 import persistencia.models.daos.DaoFactory;
 import persistencia.models.daos.TemaDAO;
-import persistencia.models.daos.jdbc.DaoJdbcFactory;
 import persistencia.models.entities.Tema;
 
-public class TemaDAOJdbcTest {
-
+public class TemaDAOJpaTest {
+    
     private Tema tema;
     private TemaDAO dao;
-    
+
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-        DaoFactory.setFactory(new DaoJdbcFactory());
-        DaoJdbcFactory.dropAndCreateTables();
+        DaoFactory.setFactory(new DaoJpaFactory());
+        DaoJpaFactory.dropAndCreateTables();
     }
 
     @Before
@@ -32,7 +31,7 @@ public class TemaDAOJdbcTest {
 
     @After
     public void tearDown() throws Exception {
-        DaoJdbcFactory.dropAndCreateTables();
+        DaoJpaFactory.dropAndCreateTables();
     }
 
     @Test
