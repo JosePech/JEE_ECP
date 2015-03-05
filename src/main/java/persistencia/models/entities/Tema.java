@@ -1,8 +1,10 @@
 package persistencia.models.entities;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+@Entity(name="temas")
 public class Tema {
     
     public static final String TABLE = "temas";
