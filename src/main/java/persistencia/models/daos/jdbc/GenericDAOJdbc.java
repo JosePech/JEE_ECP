@@ -1,4 +1,4 @@
-package presistencia.models.daos.jdbc;
+package persistencia.models.daos.jdbc;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

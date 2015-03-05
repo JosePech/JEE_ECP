@@ -1,4 +1,4 @@
-package presistencia.models.daos.jdbc;
+package persistencia.models.daos.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
