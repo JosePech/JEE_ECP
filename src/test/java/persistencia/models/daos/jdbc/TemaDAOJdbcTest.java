@@ -37,7 +37,7 @@ public class TemaDAOJdbcTest {
 
     @Test
     public void testRead() {
-        assertEquals(tema, dao.read(tema.getId()));
+        assertEquals(this.tema, dao.read(tema.getId()));
     }
     
     @Test
@@ -53,7 +53,7 @@ public class TemaDAOJdbcTest {
     @Test
     public void testDeleteById() {
         dao.deleteById(tema.getId());
-        assertEquals(null, dao.read(tema.getId()));
+        assertNull( dao.read(tema.getId()));
     }
     
     @Test

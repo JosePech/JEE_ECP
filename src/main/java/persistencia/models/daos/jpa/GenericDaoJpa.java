@@ -13,7 +13,7 @@ import persistencia.models.daos.GenericDAO;
 
 public abstract class GenericDaoJpa<T, ID> implements GenericDAO<T, ID> {
     
-    private Class<T> persistentClass;
+    protected Class<T> persistentClass;
 
     public GenericDaoJpa(Class<T> persistentClass) {
         this.persistentClass = persistentClass;

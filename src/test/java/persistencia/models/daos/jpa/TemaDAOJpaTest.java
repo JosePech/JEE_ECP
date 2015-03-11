@@ -90,15 +90,13 @@ public class TemaDAOJpaTest {
     public void testDeleteById() {
         Tema tema = dao.read(this.temas.get(0).getId());
         dao.deleteById(tema.getId());
-        assertEquals(null, dao.read(tema.getId()));
+        assertNull(dao.read(tema.getId()));
         assertEquals(2, dao.findAll().size());
     }
     
     @Test
     public void testFindAll() {
         List<Tema> temasPersistentes = dao.findAll();
-        for(int i = 0; i < temasPersistentes.size(); i++ ){
-            assertEquals(true, temasPersistentes.containsAll(this.temas));
-        }
+        assertTrue(temasPersistentes.containsAll(this.temas));
     }
 }

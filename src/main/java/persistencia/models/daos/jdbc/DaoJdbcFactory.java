@@ -11,6 +11,7 @@ import persistencia.models.daos.DaoFactory;
 import persistencia.models.daos.TemaDAO;
 import persistencia.models.daos.VotoDAO;
 import persistencia.models.entities.Tema;
+import persistencia.models.entities.Voto;
 
 public class DaoJdbcFactory extends DaoFactory {
     
@@ -45,6 +46,7 @@ public class DaoJdbcFactory extends DaoFactory {
     public static void dropAndCreateTables() {
         try {
             Statement statement = getConnection().createStatement();
+            statement.executeUpdate(String.format(DROP_TABLE, Voto.TABLE));
             statement.executeUpdate(String.format(DROP_TABLE, Tema.TABLE));
             statement.executeUpdate(TemaDAOJdbc.sqlToCreateTable());
         } catch (SQLException e) {

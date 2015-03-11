@@ -9,14 +9,14 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "TEMAS", uniqueConstraints={
+@Table(name = Tema.TABLE, uniqueConstraints={
   @UniqueConstraint(columnNames = {Tema.NOMBRE, Tema.PREGUNTA})
 })
 public class Tema implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
-    public static final String TABLE = "temas";
+    public static final String TABLE = "TEMAS";
 
     public static final String ID = "ID";
     @Id
