@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 
 import persistencia.models.daos.DaoFactory;
 import persistencia.models.daos.TemaDAO;
+import persistencia.models.daos.VotoDAO;
 import persistencia.models.entities.Tema;
 
 public class DaoJdbcFactory extends DaoFactory {
@@ -54,5 +55,10 @@ public class DaoJdbcFactory extends DaoFactory {
     @Override
     public TemaDAO getTemaDao() {
         return new TemaDAOJdbc();
+    }
+
+    @Override
+    public VotoDAO getVotoDao() {
+        throw new UnsupportedOperationException("JDBC No soporta el manejo de votos"); 
     }
 }

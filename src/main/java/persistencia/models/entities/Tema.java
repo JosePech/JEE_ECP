@@ -1,11 +1,20 @@
 package persistencia.models.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
-@Entity(name="temas")
-public class Tema {
+@Entity
+@Table(name = "TEMAS", uniqueConstraints={
+  @UniqueConstraint(columnNames = {Tema.NOMBRE, Tema.PREGUNTA})
+})
+public class Tema implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
     
     public static final String TABLE = "temas";
 
@@ -60,8 +69,7 @@ public class Tema {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + getPregunta().hashCode();
-        result = prime * result + getNombre().hashCode();
+        result = prime * result + getPregunta().hashCode() + getNombre().hashCode();
         return result;
     }
 

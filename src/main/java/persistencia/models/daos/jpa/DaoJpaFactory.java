@@ -10,6 +10,7 @@ import org.eclipse.persistence.config.PersistenceUnitProperties;
 
 import persistencia.models.daos.DaoFactory;
 import persistencia.models.daos.TemaDAO;
+import persistencia.models.daos.VotoDAO;
 
 public class DaoJpaFactory extends DaoFactory{
     
@@ -33,5 +34,10 @@ public class DaoJpaFactory extends DaoFactory{
     @Override
     public TemaDAO getTemaDao() {
         return new TemaDaoJpa();
+    }
+    
+    @Override    
+    public VotoDAO getVotoDao() {
+        return new VotoDaoJpa();
     }
 }
