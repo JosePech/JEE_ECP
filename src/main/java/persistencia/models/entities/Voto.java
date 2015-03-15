@@ -7,15 +7,17 @@ import javax.persistence.*;
 import persistencia.models.entities.utils.Escolaridad;
 
 @Entity
-@Table(name = "VOTOS", uniqueConstraints={
+@Table(name = Voto.TABLE, uniqueConstraints={
     @UniqueConstraint(columnNames = {Voto.IP, Voto.TEMA_ID})
 })
 @NamedQueries({
-@NamedQuery(name = Voto.FIND_ALL_AVG_GROUP_TEMA_ESCOLARIDAD, 
-query = "SELECT v.tema, v.escolaridad, AVG(v.valor) as total FROM Voto v GROUP BY v.escolaridad, v.tema ")})
+@NamedQuery(name = Voto.FIND_ALL_AVG_GROUP_TEMA_ESCOLARIDAD,
+query = "SELECT new persistencia.models.entities.utils.VotoSummary(v.tema, v.escolaridad, COUNT(v), AVG(v.valor) ) FROM Voto v GROUP BY v.escolaridad, v.tema ")})
 public class Voto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	public static final String TABLE = "VOTOS";
 	
 	public static final String FIND_ALL_AVG_GROUP_TEMA_ESCOLARIDAD = "FIND_ALL_AVG_GROUP_TEMA_ESCOLARIDAD";
 
@@ -30,7 +32,7 @@ public class Voto implements Serializable {
         this.setIp(ip);
     }
 
-    @ManyToOne(cascade = CascadeType.REMOVE, optional = true)    
+    @ManyToOne(optional = true)    
     @JoinColumn(foreignKey = @ForeignKey( name="VOTOS_TEMAS_FK", foreignKeyDefinition="FOREIGN KEY (`TEMA_ID`) REFERENCES `miwjee`.`TEMAS` (`ID`) ON DELETE CASCADE ON UPDATE RESTRICT;") )
 	private Tema tema;
     public static final String TEMA_ID = "TEMA_ID";

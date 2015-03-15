@@ -44,8 +44,6 @@ public abstract class GenericDaoJpa<T, ID> implements GenericDAO<T, ID> {
         return entity;
     }
 
-    // Cuando en una relación de colección se elimina un miembro de la
-    // colección, se debe borrar de la tabla explicitamente
     @Override
     public void update(T entity) {
         EntityManager entityManager = DaoJpaFactory.getEntityManagerFactory().createEntityManager();
@@ -86,19 +84,13 @@ public abstract class GenericDaoJpa<T, ID> implements GenericDAO<T, ID> {
     @Override
     public List<T> findAll() {
         EntityManager entityManager = DaoJpaFactory.getEntityManagerFactory().createEntityManager();
-        // Se crea un criterio de consulta
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(this.persistentClass);
 
-        // Se establece la clausula FROM
         Root<T> root = criteriaQuery.from(this.persistentClass);
 
-        // Se establece la clausula SELECT
-        criteriaQuery.select(root); // criteriaQuery.multiselect(root.get(atr))
+        criteriaQuery.select(root);
 
-        // No existen predicados
-
-        // Se realiza la query
         TypedQuery<T> typedQuery = entityManager.createQuery(criteriaQuery);
         typedQuery.setFirstResult(0); // El primero es 0
         typedQuery.setMaxResults(0); // Se realiza la query, se buscan todos
