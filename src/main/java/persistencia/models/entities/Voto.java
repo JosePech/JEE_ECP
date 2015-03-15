@@ -54,7 +54,6 @@ public class Voto implements Serializable {
     }
 
     public void setTema(Tema tema) {
-        assert tema != null;
         this.tema = tema;
     }
 
@@ -75,7 +74,6 @@ public class Voto implements Serializable {
     }
 
     public void setValor(Integer valor) {
-        assert valor != null && valor >= 0 && valor <= 10;
         this.valor = valor;
     }
     
