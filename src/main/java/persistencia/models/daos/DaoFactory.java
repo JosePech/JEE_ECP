@@ -1,5 +1,7 @@
 package persistencia.models.daos;
 
+import persistencia.models.daos.jpa.DaoJpaFactory;
+
 public abstract class DaoFactory {
     public static DaoFactory factory = null;
 
@@ -7,8 +9,10 @@ public abstract class DaoFactory {
         DaoFactory.factory = factory;
     }
 
-    public static DaoFactory getFactory() {
-        assert factory != null;
+    public static DaoFactory getFactory() {        
+        if(factory == null){
+            factory = new DaoJpaFactory();
+        }
         return factory;
     }
 

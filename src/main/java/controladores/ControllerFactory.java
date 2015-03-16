@@ -1,5 +1,7 @@
 package controladores;
 
+import controladores.ejbs.ControllerFactoryEjbs;
+
 public abstract class ControllerFactory {
     
     public static ControllerFactory factory = null;
@@ -10,7 +12,9 @@ public abstract class ControllerFactory {
     }
 
     public static ControllerFactory getFactory() {
-        assert factory != null;
+        if(factory == null){
+            factory = new ControllerFactoryEjbs();
+        }
         return factory;
     }
     
