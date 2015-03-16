@@ -1,0 +1,125 @@
+.hidden{
+    display: none;
+}
+.tabla{
+    border-collapse: separate; /* IE7 and lower */
+    border-spacing: 0; 
+    border: solid #ccc 1px;
+    border-radius: 6px;
+    box-shadow: 0 1px 1px #ccc;  
+    background: #ffffff;
+    width: 100%;
+}
+.tabla th:first-child {
+    border-radius: 6px 0 0 0;
+}
+
+.tabla th:last-child {
+    border-radius: 0 6px 0 0;
+}
+
+.tabla th:only-child{
+    border-radius: 6px 6px 0 0;
+}
+.tabla tbody tr:nth-child(even) {
+    background: #f5f5f5;  
+    box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;        
+}
+.tabla td, .tabla th {
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    padding: 5px;
+    text-align: left;    
+}
+.tabla th {
+    background-color: #dce9f9;
+    background-image: linear-gradient(top, #ebf3fc, #dce9f9);                
+    box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;        
+    border-top: none;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5); 
+}
+.modalDialog {
+    position: fixed;            
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 99999;
+    opacity:0;
+    transition: opacity 400ms ease-in;
+    pointer-events: none;
+}
+.modalDialog:target {
+    opacity:1;
+    pointer-events: auto;
+}
+
+.modalDialog > div {
+    width: 700px;
+    position: relative;
+    margin: 8% auto;
+    padding: 5px 20px 13px 20px;
+    border-radius: 10px;
+    background: #fff;
+    height: 200px;              
+}
+
+#AyudaModal > div {
+    height: 500px;              
+}
+
+.close {
+    background: #606061;
+    color: #FFFFFF;
+    line-height: 25px;
+    position: fixed;
+    right: 24%;
+    text-align: center;
+    top: 13%;
+    width: 24px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 12px;
+    box-shadow: 1px 1px 3px #000;
+}
+
+.close:hover { background: #df0505; }
+
+.form-input{
+    width:40%;
+    padding: 0px;
+    margin: 0px;
+    float:left;
+}
+.form-input-big{                
+    padding: 0px;
+    margin: 0px;
+    clear:both;
+}
+.barop{
+    width:100%;
+    margin-bottom:10px;
+    text-align: right;
+}
+#vencimientoOtro{
+    float:right;
+}
+div.ui-datepicker{
+ font-size:14px;
+}
+.facTotales{            
+    text-align: right;
+    width:100%;
+    margin-top:20px;
+}
+.facTotales input{            
+    text-align:right; 
+}
+.combo button{
+    width:170px;
+    margin-bottom: 5px;
+}
+.navSection{
+    min-height: 300px;
+}
