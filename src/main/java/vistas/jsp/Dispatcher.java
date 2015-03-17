@@ -120,9 +120,9 @@ public class Dispatcher extends HttpServlet {
             VotarTemaBean votarTemaBean = new VotarTemaBean(controller);
             votarTemaBean.setTemaId(Converter.parseInt(request.getParameter("id")));
             votarTemaBean.setEscolaridad(request.getParameter("escolaridad"));
-            votarTemaBean.setVoto(Converter.parseInt(request.getParameter("escolaridad")));
+            votarTemaBean.setVoto(Converter.parseInt(request.getParameter("voto")));
             votarTemaBean.setIp(InetAddress.getLocalHost().getHostAddress());
-            request.setAttribute("TemasVotoBean", votarTemaBean);
+            request.setAttribute("VotarTemaBean", votarTemaBean);
             view = votarTemaBean.process();
             break;            
         default:
