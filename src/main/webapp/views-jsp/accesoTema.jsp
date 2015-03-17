@@ -47,7 +47,7 @@
                 <c:if test="${accesoBean.accesoDenegado}">
                    <h4>Error en la operación. Verifique los datos e intente nuevamente.</h4>
                 </c:if>
-                <form method=post >
+                <form action="<c:url value="/jsp/accesoTema"/>" method=post >
                     <div>
                         <label for="clave">Clave de acceso: </label>
                         <br/>

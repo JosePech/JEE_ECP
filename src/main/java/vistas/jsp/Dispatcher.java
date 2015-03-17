@@ -94,12 +94,13 @@ public class Dispatcher extends HttpServlet {
             
             AccesoTemasBean accesoTemasBean = new AccesoTemasBean();
             accesoTemasBean.setClave(request.getParameter("clave"));
-            view = accesoTemasBean.process();
-            request.setAttribute("AccesoTemaBean", accesoTemasBean);
+            view = accesoTemasBean.process();            
             if(!accesoTemasBean.isAccesoDenegado()){
                 session.setAttribute(ACCESO_SESSION_ID, 1);
+                request.setAttribute("BorrarTemaBean", new BorrarTemaBean(controller));
             }else{
                 session.setAttribute(ACCESO_SESSION_ID, 0);
+                request.setAttribute("AccesoTemaBean", accesoTemasBean);
             }
             break;
         case BorrarTemaBean.PATH_BORRAR_TEMA:              
@@ -141,9 +142,8 @@ public class Dispatcher extends HttpServlet {
 	private String validarAccesoTemas(HttpServletRequest request){
 	    session = request.getSession(true);
         Integer acceso = Converter.parseInt(session.getAttribute(ACCESO_SESSION_ID));
-        if(acceso != null && acceso == 1){
-            BorrarTemaBean borrarTemaBean = new BorrarTemaBean(controller);
-            request.setAttribute("BorrarTemaBean", borrarTemaBean);
+        if(acceso != null && acceso == 1){            
+            request.setAttribute("BorrarTemaBean", new BorrarTemaBean(controller));
             return BorrarTemaBean.PATH_BORRAR_TEMA;
         }else{
             return AccesoTemasBean.PATH_ACCESO_TEMA;
