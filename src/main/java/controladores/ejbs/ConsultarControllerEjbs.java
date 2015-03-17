@@ -1,6 +1,7 @@
 package controladores.ejbs;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -14,32 +15,54 @@ import persistencia.models.entities.utils.VotoSummary;
 import controladores.ConsultarController;
 
 public class ConsultarControllerEjbs implements ConsultarController {
+    
+    private List<VotoSummary> summary;
 
     @Override
     public List<VotoSummary> consultar() {
         VotoDAO dao = DaoFactory.getFactory().getVotoDao();
         TemaDAO temaDao = DaoFactory.getFactory().getTemaDao();
         List<VotoSummary> votosRegistrados = dao.getSummary();
-        List<VotoSummary> result = new ArrayList<VotoSummary>();
-        //System.out.println(String.format("Registros[Size:%d]", votosRegistrados.size()));
+        summary= new ArrayList<VotoSummary>();
+        
         for (Tema tema : temaDao.findAll()) {
             for (Escolaridad e : Escolaridad.values()) {
-                //System.out.println(String.format("Testing[Tema.Id:%s -> Escolaridad:%s]", tema.getId(), e));
+        
                 List<VotoSummary> temp = votosRegistrados.stream().filter(existeVoto(tema, e))
+                        .sorted(porTema().thenComparing(porEscolaridad()))
                         .collect(Collectors.toList());
-                //System.out.println(String.format("Filtro[Size:%d]", temp.size()));
-                assert temp.size() < 2;
+                
                 if (temp.size() > 0 && temp.get(0) != null) {
-                    result.add(temp.get(0));
+                    summary.add(temp.get(0));
                 } else {
-                    result.add(new VotoSummary(tema, e, null, null));
+                    summary.add(new VotoSummary(tema, e, null, null));
                 }
             }
         }
-        return result;
+        
+        return summary;
     }
-
+    
+    @Override
+    public Long getTotalTema(Tema tema) {
+        if(summary == null)
+            return null;
+        Long total = summary.stream()
+        .filter(t -> t.getTema().equals(tema))
+        .mapToLong(VotoSummary::getTotal)
+        .sum();
+        return total;
+    }
+    
     private Predicate<VotoSummary> existeVoto(Tema tema, Escolaridad e) {
         return  p -> p.getTema().equals(tema) && p.getEscolaridad() == e;
+    }
+    
+    private Comparator<VotoSummary> porTema(){
+        return (t1, t2) -> t1.getTema().getNombre().compareTo(t2.getTema().getNombre());
+    }
+    
+    private Comparator<VotoSummary> porEscolaridad(){
+        return (t1, t2) -> t1.getEscolaridad().toString().compareTo(t2.getEscolaridad().toString());
     }
 }

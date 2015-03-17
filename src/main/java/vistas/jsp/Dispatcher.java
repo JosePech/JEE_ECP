@@ -18,6 +18,7 @@ import utils.Converter;
 import vistas.AccesoTemasBean;
 import vistas.AgregarTemaBean;
 import vistas.BorrarTemaBean;
+import vistas.ConsultarVotosBean;
 import vistas.TemasVotoBean;
 import vistas.VotarTemaBean;
 
@@ -58,6 +59,10 @@ public class Dispatcher extends HttpServlet {
             break;
         case VotarTemaBean.PATH_VOTAR_TEMA:
             view = TemasVotoBean.PATH_TEMAS_VOTOS;
+            break;
+        case ConsultarVotosBean.PATH_CONSULTAR_VOTOS:
+            request.setAttribute("ConsultarVotosBean", new ConsultarVotosBean(controller));
+            view = action;
             break;
         default:
             view = PATH_HOME;
