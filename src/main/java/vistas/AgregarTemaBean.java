@@ -38,7 +38,6 @@ public class AgregarTemaBean {
     }
     
     private void resetBean(){
-        this.setResult(false);
         this.setTema(null);
     }
     

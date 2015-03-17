@@ -1,6 +1,7 @@
 package vistas.jsp;
 
 import java.io.IOException;
+import java.net.InetAddress;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +18,8 @@ import utils.Converter;
 import vistas.AccesoTemasBean;
 import vistas.AgregarTemaBean;
 import vistas.BorrarTemaBean;
+import vistas.TemasVotoBean;
+import vistas.VotarTemaBean;
 
 @WebServlet("/jsp/*")
 public class Dispatcher extends HttpServlet {
@@ -49,6 +52,13 @@ public class Dispatcher extends HttpServlet {
         case BorrarTemaBean.PATH_BORRAR_TEMA:
             view = validarAccesoTemas(request);
             break;
+        case TemasVotoBean.PATH_TEMAS_VOTOS:
+            request.setAttribute("TemasVotoBean", new TemasVotoBean(controller));
+            view = action;
+            break;
+        case VotarTemaBean.PATH_VOTAR_TEMA:
+            view = TemasVotoBean.PATH_TEMAS_VOTOS;
+            break;
         default:
             view = PATH_HOME;
         }
@@ -68,11 +78,11 @@ public class Dispatcher extends HttpServlet {
             tema.setNombre(request.getParameter("nombre"));
             tema.setPregunta(request.getParameter("pregunta"));
             
-            AgregarTemaBean agregatTemaBean = new AgregarTemaBean(controller);
-            agregatTemaBean.setTema(tema);
+            AgregarTemaBean agregarTemaBean = new AgregarTemaBean(controller);
+            agregarTemaBean.setTema(tema);
             
-            request.setAttribute("TemaBean", agregatTemaBean);
-            view = agregatTemaBean.process();
+            request.setAttribute("TemaBean", agregarTemaBean);
+            view = agregarTemaBean.process();
             break;
         case AccesoTemasBean.PATH_ACCESO_TEMA:
             session = request.getSession(true);
@@ -100,7 +110,21 @@ public class Dispatcher extends HttpServlet {
             }else{
                 view = AccesoTemasBean.PATH_ACCESO_TEMA;
             }            
-            LogManager.getLogger(Dispatcher.class).debug(view);
+        case TemasVotoBean.PATH_TEMAS_VOTOS:
+            TemasVotoBean temasVotosBean = new TemasVotoBean(controller);
+            temasVotosBean.setTemaId(Converter.parseInt(request.getParameter("id")));
+            request.setAttribute("TemasVotoBean", temasVotosBean);
+            view = temasVotosBean.process();
+            break;
+        case VotarTemaBean.PATH_VOTAR_TEMA:
+            VotarTemaBean votarTemaBean = new VotarTemaBean(controller);
+            votarTemaBean.setTemaId(Converter.parseInt(request.getParameter("id")));
+            votarTemaBean.setEscolaridad(request.getParameter("escolaridad"));
+            votarTemaBean.setVoto(Converter.parseInt(request.getParameter("escolaridad")));
+            votarTemaBean.setIp(InetAddress.getLocalHost().getHostAddress());
+            request.setAttribute("TemasVotoBean", votarTemaBean);
+            view = votarTemaBean.process();
+            break;            
         default:
             view = PATH_HOME;
         }

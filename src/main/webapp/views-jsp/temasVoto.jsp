@@ -15,13 +15,14 @@
 <link rel="stylesheet" type="text/css" href="/votacionApp/resources/css/estilos.css">    
 </head>
 <body>
+    <c:set var="temasVotoBean" value="${TemasVotoBean}" />
     <body class="light">
     <div id="wrapper">
       <div class="max-width">
         <div id="sideNav">         
           <div class="combo">
             <p><strong>Menu</strong></p>                          
-              <a style="width:150px;" class="topcoat-button--large" href="<c:url value="/jsp/temasVoto"/>">VOTAR</a>
+              <a style="width:150px;" class="topcoat-button--large" href="<c:url value="/jsp/votar"/>">VOTAR</a>
               <a style="width:150px;" class="topcoat-button--large" href="<c:url value="/jsp/agregarTema"/>">AGREGAR TEMA</a>
               <a style="width:150px;" class="topcoat-button--large" href="<c:url value="/jsp/accesoTema"/>">LISTA TEMAS</a>
               <a style="width:150px;" class="topcoat-button--large" href="<c:url value="/jsp/consultar"/>">CONSULTAR</a>                          
@@ -40,19 +41,29 @@
         <div id="content" class="max-width">
           <div id="listaFacturas" class="navSection">          
             <header>
-              <h2>Votaciones</h2>
+              <h2>Elija un Tema de la lista</h2>
             </header>
             <div>
-                <table id="tablaFacturas" class="tabla">
-                    <thead>
-                        <th>Tema</th>
-                        <th>Voto</th>
-                        <th>Escolaridad</th>
-                        <th>IP</th>
-                    </thead>
-                    <tbody>                        
-                    </tbody>
-                </table>
+                ${temasVotoBean.fetchTemas()}
+                <c:if test="${temasVotoBean.temas.size() == 0}">
+                   <h4>No hay temas registrados.</h4>
+                </c:if>
+                <form method="post">
+                    <ul style="list-style-type:none;">
+                        <c:forEach var="tema" items="${temasVotoBean.temas}">
+                            <li style="padding:5px;">
+                               <label class="topcoat-radio-button">
+                                  <input type="radio" checked name="id" value="${tema.id}">
+                                  <div class="topcoat-radio-button__checkmark">&nbsp;</div>
+                                  ${tema.nombre}
+                               </label>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                    <p>
+                        <input type="submit" value="Votar" />
+                    </p>
+                </form>
             </div>
           </div>
         </div>

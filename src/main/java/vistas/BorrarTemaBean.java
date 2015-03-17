@@ -37,7 +37,7 @@ public class BorrarTemaBean {
             }
         }catch(Exception e){
             this.setResult(false);
-            LogManager.getLogger(AgregarTemaBean.class).debug(e.getMessage());
+            LogManager.getLogger(BorrarTemaBean.class).debug(e.getMessage());
         }
         this.resetBean();
         return PATH_BORRAR_TEMA;
@@ -48,7 +48,6 @@ public class BorrarTemaBean {
     }
     
     private void resetBean(){
-        this.setResult(false);
         this.setTemaId(null);
     }
     
