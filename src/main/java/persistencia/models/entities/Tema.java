@@ -76,8 +76,8 @@ public class Tema implements Serializable {
     @Override
     public boolean equals(Object obj) {
         assert (obj instanceof Tema);
-        Tema cast = (Tema)obj;
-        return cast.getId() == this.id;
+        Tema cast = (Tema)obj;        
+        return cast.getId().equals(this.id);
     }
 
 }

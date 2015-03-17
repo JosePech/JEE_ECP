@@ -25,12 +25,11 @@ public class TemasVotoBean {
     public TemasVotoBean(ControllerFactory controller){
         this.controller = controller;
     }
-    
-    public void fetchTemas(){
-        this.setTemas(controller.getVotarController().getTemas());
-    }
 
     public List<Tema> getTemas() {
+        if(temas == null){
+            this.setTemas(controller.getVotarController().getTemas());
+        }
         return temas;
     }
 

@@ -44,7 +44,6 @@
               <h2>Elija un Tema de la lista</h2>
             </header>
             <div>
-                ${temasVotoBean.fetchTemas()}
                 <c:if test="${temasVotoBean.temas.size() == 0}">
                    <h4>No hay temas registrados.</h4>
                 </c:if>
