@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -15,7 +16,7 @@
 <link rel="stylesheet" type="text/css" href="/votacionApp/resources/css/estilos.css">    
 </head>
 <body>
-    <c:set var="borrarBean" value="${BorrarTemaBean}" />
+    <c:set var="temaBean" value="${TemaBean}" />
     <body class="light">
     <div id="wrapper">
       <div class="max-width">
@@ -41,29 +42,34 @@
         <div id="content" class="max-width">
           <div id="listaFacturas" class="navSection">          
             <header>
-              <h2>Listado de Temas</h2>
+              <h2>Nuevo Tema</h2>
             </header>
             <div>
-                <c:if test="${borrarBean.result}">
-                   <h4>Error en la operación. Verifique los datos e intente nuevamente.</h4>
-                </c:if>
-                <div>${borrarBean.fetchTemas()}</div>
-			    <form method="post">
-			        <ul style="list-style-type:none;">
-			            <c:forEach var="tema" items="${borrarBean.temas}">
-			                <li>
-			                   <label class="topcoat-radio-button">
-			                      <input type="radio" checked name="id" value="${tema.id}">
-			                      <div class="topcoat-radio-button__checkmark"></div>
-			                      ${tema.nombre}
-	                           </label>
-                            </li>
-			            </c:forEach>
-			        </ul>
-			        <p>
-			            <input type="submit" value="Borrar" />
-			        </p>
-			    </form>
+				<c:choose>
+				    <c:when test="${temaBean.result}">
+				       <h4>Tema agregado exitosamente</h4>
+				    </c:when>
+				    <c:when test="${temaBean.result == false}">
+                       <h4>Error en la operación. Verifique los datos e intente nuevamente.</h4>
+                    </c:when>
+				</c:choose>
+                <form method=post >
+                     <div>
+                         <label for="temaDescripcion">Descripción: </label>
+                         <br/>
+                         <input class="topcoat-text-input" size="50" type="text" placeholder="Descripcion.." required id="nombre" name="nombre" />
+                     </div>
+                     <br/>
+                     <div>
+                         <label for="temaPregunta">Pregunta: </label>
+                         <br/>
+                         <input class="topcoat-text-input" size="50" type="text" required id="pregunta" placeholder="¿Pregunta del tema?" name="pregunta" />                                      
+                     </div>   
+                     <br/>                    
+                    <div class="barop">
+                        <button type="submit" id="btnAgregarProducto" class="topcoat-button--large--cta">Guardar</button>
+                    </div>                    
+                </form>
             </div>
           </div>
         </div>

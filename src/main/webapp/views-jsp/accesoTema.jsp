@@ -15,7 +15,7 @@
 <link rel="stylesheet" type="text/css" href="/votacionApp/resources/css/estilos.css">    
 </head>
 <body>
-    <c:set var="borrarBean" value="${BorrarTemaBean}" />
+    <c:set var="accesoBean" value="${AccesoTemaBean}" />
     <body class="light">
     <div id="wrapper">
       <div class="max-width">
@@ -41,29 +41,23 @@
         <div id="content" class="max-width">
           <div id="listaFacturas" class="navSection">          
             <header>
-              <h2>Listado de Temas</h2>
+              <h2>Acceder a listado de Temas</h2>
             </header>
             <div>
-                <c:if test="${borrarBean.result}">
+                <c:if test="${accesoBean.accesoDenegado}">
                    <h4>Error en la operación. Verifique los datos e intente nuevamente.</h4>
                 </c:if>
-                <div>${borrarBean.fetchTemas()}</div>
-			    <form method="post">
-			        <ul style="list-style-type:none;">
-			            <c:forEach var="tema" items="${borrarBean.temas}">
-			                <li>
-			                   <label class="topcoat-radio-button">
-			                      <input type="radio" checked name="id" value="${tema.id}">
-			                      <div class="topcoat-radio-button__checkmark"></div>
-			                      ${tema.nombre}
-	                           </label>
-                            </li>
-			            </c:forEach>
-			        </ul>
-			        <p>
-			            <input type="submit" value="Borrar" />
-			        </p>
-			    </form>
+                <form method=post >
+                    <div>
+                        <label for="clave">Clave de acceso: </label>
+                        <br/>
+                        <input class="topcoat-text-input" size="50" type="password" required id="clave" name="clave" />
+                    </div>
+                    <br/>                
+                    <div class="barop">
+                        <button type="submit" id="btnAgregarProducto" class="topcoat-button--large--cta">Acceder</button>
+                    </div>                    
+                </form>
             </div>
           </div>
         </div>
