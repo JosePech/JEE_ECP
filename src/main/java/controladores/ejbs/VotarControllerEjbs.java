@@ -5,7 +5,7 @@ import persistencia.models.daos.VotoDAO;
 import persistencia.models.entities.Voto;
 import controladores.VotarController;
 
-public class VotarControllerEjbs implements VotarController {
+public class VotarControllerEjbs extends TemasControllerEjbs implements VotarController {
 
     @Override
     public void votar(Voto voto) {

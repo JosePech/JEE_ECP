@@ -1,12 +1,9 @@
 package controladores;
 
-import java.util.List;
-
 import persistencia.models.entities.Tema;
 
-public interface BorrarTemaController {
+public interface BorrarTemaController extends TemasController{
     
     void borrar(Tema tema);
     
-    List<Tema> getTemas();
 }
