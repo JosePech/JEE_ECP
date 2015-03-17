@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.LogManager;
+
 import controladores.ControllerFactory;
 import persistencia.models.entities.Tema;
 import utils.Converter;
@@ -21,7 +23,8 @@ public class Dispatcher extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     private static String PATH_ROOT_VIEW = "/views-jsp/";
-    private static final String PATH_HOME = "home";   
+    private static final String PATH_HOME = "home";
+    private static final String ACCESO_SESSION_ID = "accesoLista";
     private HttpSession session;
     private ControllerFactory controller;
 
@@ -43,7 +46,7 @@ public class Dispatcher extends HttpServlet {
         case AccesoTemasBean.PATH_ACCESO_TEMA:
             view = validarAccesoTemas(request);
             break;
-        case "borrarTema":
+        case BorrarTemaBean.PATH_BORRAR_TEMA:
             view = validarAccesoTemas(request);
             break;
         default:
@@ -77,24 +80,27 @@ public class Dispatcher extends HttpServlet {
             AccesoTemasBean accesoTemasBean = new AccesoTemasBean();
             accesoTemasBean.setClave(request.getParameter("clave"));
             view = accesoTemasBean.process();
-            
+            request.setAttribute("AccesoTemaBean", accesoTemasBean);
             if(!accesoTemasBean.isAccesoDenegado()){
-                session.setAttribute("accesoLista", 1);
+                session.setAttribute(ACCESO_SESSION_ID, 1);
             }else{
-                session.setAttribute("accesoLista", 0);
+                session.setAttribute(ACCESO_SESSION_ID, 0);
             }
             break;
         case BorrarTemaBean.PATH_BORRAR_TEMA:              
             session = request.getSession(true);
-            Integer acceso = Converter.parseInt(session.getAttribute("accesoLista"));
-            if(acceso == 1){
+            Integer acceso = Converter.parseInt(session.getAttribute(ACCESO_SESSION_ID));
+            LogManager.getLogger(Dispatcher.class).debug(acceso);
+            if(acceso != null && acceso == 1){
                 BorrarTemaBean borrarTemaBean = new BorrarTemaBean(controller);
                 Integer id = Converter.parseInt(request.getParameter("id"));
                 borrarTemaBean.setTemaId(id);
                 view = borrarTemaBean.process();
+                request.setAttribute("BorrarTemaBean", borrarTemaBean);
             }else{
                 view = AccesoTemasBean.PATH_ACCESO_TEMA;
-            }
+            }            
+            LogManager.getLogger(Dispatcher.class).debug(view);
         default:
             view = PATH_HOME;
         }
@@ -105,8 +111,10 @@ public class Dispatcher extends HttpServlet {
 	
 	private String validarAccesoTemas(HttpServletRequest request){
 	    session = request.getSession(true);
-        Integer acceso = Converter.parseInt(session.getAttribute("accesoLista"));
-        if(acceso == 1){
+        Integer acceso = Converter.parseInt(session.getAttribute(ACCESO_SESSION_ID));
+        if(acceso != null && acceso == 1){
+            BorrarTemaBean borrarTemaBean = new BorrarTemaBean(controller);
+            request.setAttribute("BorrarTemaBean", borrarTemaBean);
             return BorrarTemaBean.PATH_BORRAR_TEMA;
         }else{
             return AccesoTemasBean.PATH_ACCESO_TEMA;

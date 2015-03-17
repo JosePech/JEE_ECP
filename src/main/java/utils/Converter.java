@@ -6,7 +6,7 @@ public class Converter {
         Integer n = null;
         try {
             n = new Integer(Integer.parseInt(str.toString()));
-        } catch (NumberFormatException ex) {
+        } catch (Exception ex) {
         }
         return n;
     }
