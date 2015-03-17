@@ -23,10 +23,10 @@
         <div id="sideNav">         
           <div class="combo">
             <p><strong>Menu</strong></p>                          
-              <a style="width:150px;" class="topcoat-button--large" href="<c:url value="/jsp/votar"/>">VOTAR</a>
+              <a style="width:150px;" class="topcoat-button--large" href="<c:url value="/jsp/temasVoto"/>">VOTAR</a>
               <a style="width:150px;" class="topcoat-button--large" href="<c:url value="/jsp/agregarTema"/>">AGREGAR TEMA</a>
               <a style="width:150px;" class="topcoat-button--large" href="<c:url value="/jsp/accesoTema"/>">LISTA TEMAS</a>
-              <a style="width:150px;" class="topcoat-button--large" href="<c:url value="/jsp/consultar"/>">CONSULTAR</a>                          
+              <a style="width:150px;" class="topcoat-button--large" href="<c:url value="/jsp/consultarVotos"/>">CONSULTAR</a>                        
           </div>          
         </div>
       </div>

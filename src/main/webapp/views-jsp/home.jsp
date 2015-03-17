@@ -24,7 +24,7 @@
               <a style="width:150px;" class="topcoat-button--large" href="<c:url value="/jsp/temasVoto"/>">VOTAR</a>
               <a style="width:150px;" class="topcoat-button--large" href="<c:url value="/jsp/agregarTema"/>">AGREGAR TEMA</a>
               <a style="width:150px;" class="topcoat-button--large" href="<c:url value="/jsp/accesoTema"/>">LISTA TEMAS</a>
-              <a style="width:150px;" class="topcoat-button--large" href="<c:url value="/jsp/consultar"/>">CONSULTAR</a>                          
+              <a style="width:150px;" class="topcoat-button--large" href="<c:url value="/jsp/consultarVotos"/>">CONSULTAR</a>                          
           </div>          
         </div>
       </div>
@@ -40,19 +40,10 @@
         <div id="content" class="max-width">
           <div id="listaFacturas" class="navSection">          
             <header>
-              <h2>Votaciones</h2>
+              <h2>Sistema de Votaciones</h2>
             </header>
-            <div>
-                <table id="tablaFacturas" class="tabla">
-                    <thead>
-                        <th>Tema</th>
-                        <th>Voto</th>
-                        <th>Escolaridad</th>
-                        <th>IP</th>
-                    </thead>
-                    <tbody>                        
-                    </tbody>
-                </table>
+            <div style="padding:20px;">
+                asda
             </div>
           </div>
         </div>
