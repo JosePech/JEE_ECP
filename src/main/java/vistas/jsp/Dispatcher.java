@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import controladores.ControllerFactory;
 import persistencia.models.entities.Tema;
 import utils.Converter;
 import vistas.AccesoTemasBean;
@@ -22,8 +23,15 @@ public class Dispatcher extends HttpServlet {
     private static String PATH_ROOT_VIEW = "/views-jsp/";
     private static final String PATH_HOME = "home";   
     private HttpSession session;
+    private ControllerFactory controller;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@Override
+    public void init() throws ServletException {
+	    controller = ControllerFactory.getFactory();
+        super.init();
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    
 	    String action = request.getPathInfo().substring(1);
         
@@ -57,7 +65,7 @@ public class Dispatcher extends HttpServlet {
             tema.setNombre(request.getParameter("nombre"));
             tema.setPregunta(request.getParameter("pregunta"));
             
-            AgregarTemaBean agregatTemaBean = new AgregarTemaBean();
+            AgregarTemaBean agregatTemaBean = new AgregarTemaBean(controller);
             agregatTemaBean.setTema(tema);
             
             request.setAttribute("TemaBean", agregatTemaBean);
@@ -80,7 +88,7 @@ public class Dispatcher extends HttpServlet {
             session = request.getSession(true);
             Integer acceso = Converter.parseInt(session.getAttribute("accesoLista"));
             if(acceso == 1){
-                BorrarTemaBean borrarTemaBean = new BorrarTemaBean();
+                BorrarTemaBean borrarTemaBean = new BorrarTemaBean(controller);
                 Integer id = Converter.parseInt(request.getParameter("id"));
                 borrarTemaBean.setTemaId(id);
                 view = borrarTemaBean.process();

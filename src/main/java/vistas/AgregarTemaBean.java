@@ -9,9 +9,15 @@ public class AgregarTemaBean {
 
     private Tema tema;
     
+    private ControllerFactory controller;
+    
     private boolean result;
     
     public static final String PATH_AGREGAR_TEMA = "agregarTema";
+
+    public AgregarTemaBean(ControllerFactory controller) {
+        this.controller = controller;
+    }
 
     public void setTema(Tema tema) {
         this.tema = tema;
@@ -21,7 +27,7 @@ public class AgregarTemaBean {
         try{
             this.setResult(validarDatos());
             if(this.getResult()){
-                ControllerFactory.getFactory().getAgregarTemaController().agregar(tema);
+                controller.getAgregarTemaController().agregar(tema);
             }
         }catch(Exception e){
             this.setResult(false);

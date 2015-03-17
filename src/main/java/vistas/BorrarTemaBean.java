@@ -1,5 +1,7 @@
 package vistas;
 
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 
 import controladores.ControllerFactory;
@@ -7,11 +9,19 @@ import persistencia.models.entities.Tema;
 
 public class BorrarTemaBean {
     
+    private ControllerFactory controller;
+    
     private Integer temaId;
     
     private boolean result;
     
+    private List<Tema> temas;
+    
     public static final String PATH_BORRAR_TEMA = "borrarTema";
+    
+    public BorrarTemaBean(ControllerFactory factory){
+        this.controller = factory;
+    }
 
     public void setTemaId(Integer temaId) {
         this.temaId = temaId;
@@ -23,7 +33,7 @@ public class BorrarTemaBean {
             if(this.getResult()){
                 Tema tema = new Tema();
                 tema.setId(temaId);
-                ControllerFactory.getFactory().getBorrarTemaController().borrar(tema);
+                controller.getBorrarTemaController().borrar(tema);
             }
         }catch(Exception e){
             this.setResult(false);
@@ -31,6 +41,10 @@ public class BorrarTemaBean {
         }
         this.resetBean();
         return PATH_BORRAR_TEMA;
+    }
+    
+    public void fetchTemas(){
+        this.setTemas(controller.getBorrarTemaController().getTemas());
     }
     
     private void resetBean(){
@@ -48,6 +62,14 @@ public class BorrarTemaBean {
     
     public boolean getResult(){
         return this.result;
+    }
+
+    public List<Tema> getTemas() {
+        return temas;
+    }
+
+    private void setTemas(List<Tema> temas) {
+        this.temas = temas;
     }
 
 }

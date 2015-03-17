@@ -9,7 +9,7 @@ public class AccesoTemasBean {
     private final String CLAVE_OK = "666";
     
     private String clave;
-    
+
     public String process(){
         if(getClave().equals(CLAVE_OK)){
             setAccesoDenegado(false);
