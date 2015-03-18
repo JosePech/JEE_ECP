@@ -7,9 +7,7 @@ import javax.persistence.*;
 import persistencia.models.entities.utils.Escolaridad;
 
 @Entity
-@Table(name = Voto.TABLE, uniqueConstraints={
-    @UniqueConstraint(columnNames = {Voto.IP, Voto.TEMA_ID})
-})
+@Table(name = Voto.TABLE )
 @NamedQueries({
 @NamedQuery(name = Voto.FIND_ALL_AVG_GROUP_TEMA_ESCOLARIDAD,
 query = "SELECT new persistencia.models.entities.utils.VotoSummary(v.tema, v.escolaridad, COUNT(v), AVG(v.valor) ) FROM Voto v GROUP BY v.escolaridad, v.tema ")})

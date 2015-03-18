@@ -44,11 +44,11 @@ public class ConsultarControllerEjbs implements ConsultarController {
     }
     
     @Override
-    public Long getTotalTema(Tema tema) {
+    public Long getTotalTema(Tema tema) {        
         if(summary == null)
             return null;
         Long total = summary.stream()
-        .filter(t -> t.getTema().equals(tema))
+        .filter(votosPorTema(tema))
         .mapToLong(VotoSummary::getTotal)
         .sum();
         return total;
@@ -56,6 +56,10 @@ public class ConsultarControllerEjbs implements ConsultarController {
     
     private Predicate<VotoSummary> existeVoto(Tema tema, Escolaridad e) {
         return  p -> p.getTema().equals(tema) && p.getEscolaridad() == e;
+    }
+    
+    private Predicate<VotoSummary> votosPorTema(Tema tema) {
+        return  p -> p.getTema().equals(tema) && p.getTotal() != null;
     }
     
     private Comparator<VotoSummary> porTema(){
