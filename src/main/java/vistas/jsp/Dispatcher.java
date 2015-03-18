@@ -26,7 +26,7 @@ import vistas.VotarTemaBean;
 public class Dispatcher extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    private static String PATH_ROOT_VIEW = "/views-jsp/";
+    private static String PATH_ROOT_VIEW = "/views.jsp/";
     private static final String PATH_HOME = "home";
     private static final String ACCESO_SESSION_ID = "accesoLista";
     private HttpSession session;
