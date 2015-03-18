@@ -35,12 +35,10 @@ public class ConsultarVotosBean {
     }
     
     public List<VotoSummary> getResumen(){
-        System.out.println(consultarController);
         return consultarController.consultar();
     }
 
     public Long getTotalPorTema(Tema tema){
-        System.out.println(consultarController);
         return consultarController.getTotalTema(tema);
     }
 

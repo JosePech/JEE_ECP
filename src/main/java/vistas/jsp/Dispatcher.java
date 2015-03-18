@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 
 import controladores.ControllerFactory;
-import persistencia.models.entities.Tema;
 import utils.Converter;
 import vistas.AccesoTemasBean;
 import vistas.AgregarTemaBean;
@@ -79,12 +78,10 @@ public class Dispatcher extends HttpServlet {
         
         switch (action) {
         case AgregarTemaBean.PATH_AGREGAR_TEMA:
-            Tema tema = new Tema();
-            tema.setNombre(request.getParameter("nombre"));
-            tema.setPregunta(request.getParameter("pregunta"));
-            
+
             AgregarTemaBean agregarTemaBean = new AgregarTemaBean(controller);
-            agregarTemaBean.setTema(tema);
+            agregarTemaBean.setTemaPregunta(request.getParameter("pregunta"));
+            agregarTemaBean.setTemaNombre(request.getParameter("nombre"));
             
             request.setAttribute("TemaBean", agregarTemaBean);
             view = agregarTemaBean.process();
