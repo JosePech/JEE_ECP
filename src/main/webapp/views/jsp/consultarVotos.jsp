@@ -54,15 +54,16 @@
                         <c:forEach var="fila" items="${registros}">
                             <c:choose>
                                 <c:when test="${filaAnterior == null || !fila.tema.equals(filaAnterior.tema)}">
+                                   <c:set var="totalTema" value="${consultaBean.getTotalPorTema(fila.tema)}" />
                                    <tr>
                                    <td colspan=2>&nbsp;</td>
                                     <td>Total de votos:
 	                                    <c:choose>
-			                                <c:when test="${fila.total == null}">
+			                                <c:when test="${totalTema == null}">
 			                                   0
 			                                </c:when>
 			                                <c:otherwise>
-		                                     ${fila.total}
+		                                     ${totalTema}
 			                                </c:otherwise>
 			                            </c:choose>
                                     </td>
