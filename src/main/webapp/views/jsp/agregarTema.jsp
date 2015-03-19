@@ -46,10 +46,10 @@
             </header>
             <div>
 				<c:choose>
-				    <c:when test="${temaBean.result}">
+				    <c:when test="${temaBean.result == 1}">
 				       <h4>Tema agregado exitosamente</h4>
 				    </c:when>
-				    <c:when test="${temaBean.result == false}">
+				    <c:when test="${temaBean.result == -1}">
                        <h4>Error en la operación. Verifique los datos e intente nuevamente.</h4>
                     </c:when>
 				</c:choose>
