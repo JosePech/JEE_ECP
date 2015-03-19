@@ -2,27 +2,44 @@ package vistas;
 
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+
 import org.apache.logging.log4j.LogManager;
 
 import persistencia.models.entities.Tema;
 import persistencia.models.entities.utils.Escolaridad;
+import utils.Converter;
 import controladores.ControllerFactory;
 
+@ManagedBean
 public class TemasVotoBean {
 
     public static final String PATH_TEMAS_VOTOS = "temasVoto";
     
+    @ManagedProperty(value = "#{controllerFactoryEjbs}")
     private ControllerFactory controller;
     
     private List<Tema> temas;
     
     private Tema tema;
     
-    private Integer temaId;
+    private String temaId;
     
     private boolean result;
     
     public TemasVotoBean(ControllerFactory controller){
+        this.controller = controller;
+    }
+    
+    public TemasVotoBean(){
+    }
+
+    public ControllerFactory getController() {
+        return controller;
+    }
+
+    public void setController(ControllerFactory controller) {
         this.controller = controller;
     }
 
@@ -42,7 +59,7 @@ public class TemasVotoBean {
             this.setResult(validarDatos());
             if(isResult()){
                 Tema buscarTema = new Tema();
-                buscarTema.setId(getTemaId());
+                buscarTema.setId(Converter.parseInt(getTemaId()));
                 setTema(getTemas().get(getTemas().indexOf(buscarTema)));
                 return VotarTemaBean.PATH_VOTAR_TEMA;
             }
@@ -64,14 +81,14 @@ public class TemasVotoBean {
     }
 
     private boolean validarDatos(){
-        return getTemaId() != null;
+        return Converter.parseInt(getTemaId()) != null;
     }
 
-    public Integer getTemaId() {
+    public String getTemaId() {
         return temaId;
     }
 
-    public void setTemaId(Integer temaId) {
+    public void setTemaId(String temaId) {
         this.temaId = temaId;
     }
 

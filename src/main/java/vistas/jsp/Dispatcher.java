@@ -115,7 +115,7 @@ public class Dispatcher extends HttpServlet {
             }            
         case TemasVotoBean.PATH_TEMAS_VOTOS:
             TemasVotoBean temasVotosBean = new TemasVotoBean(controller);
-            temasVotosBean.setTemaId(Converter.parseInt(request.getParameter("id")));
+            temasVotosBean.setTemaId(request.getParameter("id"));
             request.setAttribute("TemasVotoBean", temasVotosBean);
             view = temasVotosBean.process();
             break;
