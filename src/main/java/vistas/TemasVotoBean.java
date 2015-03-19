@@ -8,7 +8,6 @@ import javax.faces.bean.ManagedProperty;
 import org.apache.logging.log4j.LogManager;
 
 import persistencia.models.entities.Tema;
-import persistencia.models.entities.utils.Escolaridad;
 import utils.Converter;
 import controladores.ControllerFactory;
 
@@ -70,10 +69,6 @@ public class TemasVotoBean {
             resetBean();
         }
         return PATH_TEMAS_VOTOS;
-    }
-    
-    public Escolaridad[] getEscolaridadValues(){
-        return Escolaridad.values();
     }
     
     private void resetBean() {

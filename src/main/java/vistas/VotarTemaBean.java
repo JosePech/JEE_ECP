@@ -1,5 +1,7 @@
 package vistas;
 
+import java.net.InetAddress;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
@@ -17,6 +19,7 @@ public class VotarTemaBean {
     @ManagedProperty(value = "#{controllerFactoryEjbs}")
     private ControllerFactory controller;
     
+    @ManagedProperty("#{param.temaId}")
     private String temaId;
     
     private String ip;
@@ -38,6 +41,7 @@ public class VotarTemaBean {
 
     public String process() {
         try{
+            this.setIp(InetAddress.getLocalHost().getHostAddress());
             this.setResult(validarDatos());
             if(this.getResult() == 1){                
                 Tema tema = new Tema();
@@ -50,7 +54,7 @@ public class VotarTemaBean {
         }finally{
             this.resetBean();
         }        
-        return PATH_VOTAR_TEMA;
+        return TemasVotoBean.PATH_TEMAS_VOTOS;
     }
     
     private void resetBean(){
@@ -66,8 +70,12 @@ public class VotarTemaBean {
         valido = Converter.parseInt(voto) != null ? valido : -1;
         valido = ip != null ? valido : -1;
         valido = escolaridad != null ? valido: -1;
-        //LogManager.getLogger(VotarTemaBean.class).debug(String.format("TemaId: %s , Voto: %d , Ip: %s , Escolaridad: %s", temaId, voto, ip, escolaridad.toString()));
+        LogManager.getLogger(VotarTemaBean.class).debug(String.format("TemaId: %s , Voto: %s , Ip: %s , Escolaridad: %s", temaId, voto, ip, escolaridad.toString()));
         return valido;
+    }
+    
+    public Escolaridad[] getEscolaridadValues(){
+        return Escolaridad.values();
     }
     
     private void setResult(int result){

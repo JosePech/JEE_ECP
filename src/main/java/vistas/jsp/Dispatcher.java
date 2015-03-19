@@ -1,7 +1,6 @@
 package vistas.jsp;
 
 import java.io.IOException;
-import java.net.InetAddress;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -123,8 +122,7 @@ public class Dispatcher extends HttpServlet {
             VotarTemaBean votarTemaBean = new VotarTemaBean(controller);
             votarTemaBean.setTemaId(request.getParameter("id"));
             votarTemaBean.setEscolaridad(request.getParameter("escolaridad"));
-            votarTemaBean.setVoto(request.getParameter("voto"));
-            votarTemaBean.setIp(InetAddress.getLocalHost().getHostAddress());
+            votarTemaBean.setVoto(request.getParameter("voto"));            
             request.setAttribute("VotarTemaBean", votarTemaBean);
             view = votarTemaBean.process();
             break;            

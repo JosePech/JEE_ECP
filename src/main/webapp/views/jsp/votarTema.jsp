@@ -76,7 +76,7 @@
 	                    <div>
 	                        <label for="temaPregunta">Seleccione su nivel de escolaridad:</label>
 	                        <select name="escolaridad">                            
-	                            <c:forEach var="nivel" items="${temasVotoBean.getEscolaridadValues()}">
+	                            <c:forEach var="nivel" items="${votarTemaBean.getEscolaridadValues()}">
 	                            <option value="${nivel}">${nivel}</option>                                  
 	                        </c:forEach>
 	                        </select>              
