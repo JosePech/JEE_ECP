@@ -25,8 +25,6 @@ public class BorrarTemaBean{
     
     @PostConstruct
     public void update() {
-        System.out.println("pase por aqui..." + accesoBean.getAccesoDenegado());
-        System.out.println("pase por aqui..." + accesoBean.getClave());
         accesoDenegado = accesoBean.getAccesoDenegado();
     }
     
@@ -72,7 +70,6 @@ public class BorrarTemaBean{
     }
     
     public String process(){
-        System.out.println(accesoDenegado);
         if(accesoDenegado == null || accesoDenegado == -1){
             return AccesoTemasBean.PATH_ACCESO_TEMA;
         }

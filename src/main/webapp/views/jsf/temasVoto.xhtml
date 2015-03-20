@@ -7,6 +7,7 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui"
     xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:view locale="#{localeBean.language}">
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>APLICACION VOTACIONES</title>
@@ -24,10 +25,10 @@
         <div id="sideNav">         
           <div class="combo">
             <p><strong>Menu</strong></p>                          
-              <a style="width:150px;" class="topcoat-button--large" href="home.xhtml">VOTAR</a>
-              <a style="width:150px;" class="topcoat-button--large" href="agregarTema.xhtml">AGREGAR TEMA</a>
-              <a style="width:150px;" class="topcoat-button--large" href="">LISTA TEMAS</a>
-              <a style="width:150px;" class="topcoat-button--large" href="consultarVotos.xhtml">CONSULTAR</a>                          
+              <a style="width:150px;" class="topcoat-button--large" href="temasVoto.xhtml">#{msgs.menuVotar}</a>
+              <a style="width:150px;" class="topcoat-button--large" href="agregarTema.xhtml">#{msgs.menuAgregar}</a>
+              <a style="width:150px;" class="topcoat-button--large" href="accesoTema.xhtml">#{msgs.menuBorrar}</a>
+              <a style="width:150px;" class="topcoat-button--large" href="consultarVotos.xhtml">#{msgs.menuConsultar}</a>                          
           </div>          
         </div>
       </div>
@@ -35,26 +36,38 @@
         <header id="main-header">
           <div class="max-width">
             <hgroup>
-              <h1><a id="titulo11">JEE</a></h1>
-              <p>Aplicación web</p>
+              <h1><a id="titulo11" href="home.xhtml">JEE</a></h1>
+              <p>#{msgs.encabezadoSecundario}</p>
             </hgroup>
+            <div style="float:right; padding:20px;">
+                <h:form>
+                    <p:commandLink id="setLangEn" actionListener="#{localeBean.process}" ajax="false">
+                        <f:setPropertyActionListener target="#{localeBean.language}" value="en" />
+                        <img height="auto" width="50" alt="lang-eng" src="/votacionApp/resources/img/en.png"/>
+                    </p:commandLink>
+                    <p:commandLink id="setLangEs" actionListener="#{localeBean.process}" ajax="false">
+                        <f:setPropertyActionListener target="#{localeBean.language}" value="es" />
+                        <img height="auto" width="50" alt="lang-spa" src="/votacionApp/resources/img/es.png"/>
+                    </p:commandLink>
+                </h:form>
+            </div>
           </div>
         </header>
         <div id="content" class="max-width">
           <div id="listaFacturas" class="navSection">   
             <header>
-              <h2>Elija un Tema de la lista</h2>
+              <h2>#{msgs.tituloTemasVoto}</h2>
             </header>
             <div>
                 <c:if test="#{temasVotoBean.temas.size() == 0}">
-                   <h4>No hay temas registrados.</h4>
+                   <h4>#{msgs.temasVotoSinTemas}</h4>
                 </c:if>
                 <h:form>
                     <p:selectOneRadio plain="true" layout="pageDirection" value="#{temasVotoBean.temaId}">
                             <f:selectItems value="#{temasVotoBean.temas}" var="o" itemLabel="#{o.nombre}" itemValue="#{o.id}" />
                     </p:selectOneRadio>
                     <p>                        
-                        <h:commandButton value="Votar" type="submit" class="topcoat-button--large--cta" 
+                        <h:commandButton value="#{msgs.temasVotoBotonVotar}" type="submit" class="topcoat-button--large--cta" 
                         action="#{temasVotoBean.process}" />
                     </p>
                 </h:form>
@@ -65,4 +78,5 @@
       </div>
     </div>  
 </h:body>
+</f:view>
 </html>
