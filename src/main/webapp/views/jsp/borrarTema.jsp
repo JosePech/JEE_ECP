@@ -47,7 +47,7 @@
                 <c:if test="${borrarBean.result}">
                    <h4>Error en la operación. Verifique los datos e intente nuevamente.</h4>
                 </c:if>
-                <div>${borrarBean.fetchTemas()}</div>
+                ${borrarBean.fetchTemas()}
 			    <form action="<c:url value="/jsp/borrarTema"/>" method="post">
 			        <ul style="list-style-type:none;">
 			            <c:forEach var="tema" items="${borrarBean.temas}">

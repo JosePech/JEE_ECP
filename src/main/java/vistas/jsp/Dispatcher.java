@@ -91,7 +91,7 @@ public class Dispatcher extends HttpServlet {
             AccesoTemasBean accesoTemasBean = new AccesoTemasBean();
             accesoTemasBean.setClave(request.getParameter("clave"));
             view = accesoTemasBean.process();            
-            if(!accesoTemasBean.isAccesoDenegado()){
+            if(accesoTemasBean.getAccesoDenegado() == 0){
                 session.setAttribute(ACCESO_SESSION_ID, 1);
                 request.setAttribute("BorrarTemaBean", new BorrarTemaBean(controller));
             }else{
@@ -105,8 +105,7 @@ public class Dispatcher extends HttpServlet {
             LogManager.getLogger(Dispatcher.class).debug(acceso);
             if(acceso != null && acceso == 1){
                 BorrarTemaBean borrarTemaBean = new BorrarTemaBean(controller);
-                Integer id = Converter.parseInt(request.getParameter("id"));
-                borrarTemaBean.setTemaId(id);
+                borrarTemaBean.setTemaId2(request.getParameter("id"));
                 view = borrarTemaBean.process();
                 request.setAttribute("BorrarTemaBean", borrarTemaBean);
             }else{
