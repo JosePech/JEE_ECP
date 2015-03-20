@@ -13,4 +13,22 @@
 			<var>msgs</var>
 		</resource-bundle>
 	</application>
+	<navigation-rule>
+		<display-name>views/jsf/accesoTema.xhtml</display-name>
+		<from-view-id>/views/jsf/accesoTema.xhtml</from-view-id>
+		<navigation-case>
+		    <from-outcome>#{accesoTemasBean.process}</from-outcome>
+			<to-view-id>/views/jsf/borrarTema.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>views/jsf/borrarTema.xhtml</display-name>
+		<from-view-id>/views/jsf/borrarTema.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>#{borrarTemaBean.process}</from-outcome>
+			<to-view-id>/views/jsf/accesoTema.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
 </faces-config>

@@ -1,5 +1,6 @@
 package vistas;
 
+import java.io.Serializable;
 import java.net.InetAddress;
 
 import javax.faces.bean.ManagedBean;
@@ -14,7 +15,9 @@ import utils.Converter;
 import controladores.ControllerFactory;
 
 @ManagedBean
-public class VotarTemaBean {
+public class VotarTemaBean implements Serializable{
+    
+    private static final long serialVersionUID = 1L;
     
     @ManagedProperty(value = "#{controllerFactoryEjbs}")
     private ControllerFactory controller;
