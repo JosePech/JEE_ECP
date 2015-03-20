@@ -42,9 +42,6 @@
             <header>
               <h2>Sistema de Votaciones</h2>
             </header>
-            <div style="padding:20px;">
-                asda
-            </div>
           </div>
         </div>
         <footer></footer>

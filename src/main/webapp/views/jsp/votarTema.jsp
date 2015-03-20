@@ -45,7 +45,7 @@
               <h2>Registrar Voto</h2>
             </header>
             <div>
-                <c:if test="${votarTemaBean.result == false}">
+                <c:if test="${votarTemaBean.result == -1}">
                    <h4>Ocurrio un error. Vaya a la selección de tema e intente la operacion nuevamente.</h4>
                 </c:if>
                 <c:if test="${temasVotoBean != null}">
@@ -77,9 +77,9 @@
 	                        <label for="temaPregunta">Seleccione su nivel de escolaridad:</label>
 	                        <select name="escolaridad">                            
 	                            <c:forEach var="nivel" items="${votarTemaBean.getEscolaridadValues()}">
-	                            <option value="${nivel}">${nivel}</option>                                  
-	                        </c:forEach>
-	                        </select>              
+	                               <option value="${nivel}">${nivel}</option>                                  
+	                           </c:forEach>
+	                        </select>
 	                    </div>   
 	                    <br/>  
 	                    <p>

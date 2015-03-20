@@ -53,7 +53,7 @@
 			            <c:forEach var="tema" items="${borrarBean.temas}">
 			                <li>
 			                   <label class="topcoat-radio-button">
-			                      <input type="radio" checked name="id" value="${tema.id}">
+			                      <input type="radio" name="temaId2" value="${tema.id}">
 			                      <div class="topcoat-radio-button__checkmark"></div>
 			                      ${tema.nombre}
 	                           </label>

@@ -47,7 +47,7 @@
                 <c:if test="${temasVotoBean.temas.size() == 0}">
                    <h4>No hay temas registrados.</h4>
                 </c:if>
-                <form method="post">
+                <form action="/votacionApp/jsp/temasVoto" method="post">
                     <ul style="list-style-type:none;">
                         <c:forEach var="tema" items="${temasVotoBean.temas}">
                             <li style="padding:5px;">

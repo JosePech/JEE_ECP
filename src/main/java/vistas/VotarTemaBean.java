@@ -102,6 +102,7 @@ public class VotarTemaBean implements Serializable{
     }
 
     public void setEscolaridad(String parameter) {
+        if(parameter != null)
         this.escolaridad = Escolaridad.valueOf(parameter);
     }
 

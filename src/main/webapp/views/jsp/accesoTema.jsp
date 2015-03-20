@@ -44,7 +44,7 @@
               <h2>Acceder a listado de Temas</h2>
             </header>
             <div>
-                <c:if test="${accesoBean.accesoDenegado}">
+                <c:if test="${accesoBean.accesoDenegado == 1}">
                    <h4>Error en la operación. Verifique los datos e intente nuevamente.</h4>
                 </c:if>
                 <form action="<c:url value="/jsp/accesoTema"/>" method=post >
