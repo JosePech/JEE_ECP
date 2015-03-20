@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14266719219160" configfile="/VotacionApp/src/main/webapp/WEB-INF/faces-config.xml"/>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14266719219160" configfile="/VotacionApp/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="views/jsf/accesoTema.xhtml" x="204" y="120" id="pf14268037019010" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf14268039553442" inlinks="pf14268098906660" path="/views/jsf/accesoTema.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="views/jsf/borrarTema.xhtml" x="87" y="240" id="pf14268037019011" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" outlinks="pf14268098906660" inlinks="pf14268039553442" path="/views/jsf/borrarTema.xhtml"/>
+  <links id="pf14268039553442" target="pf14268037019011" source="pf14268037019010" outcome="#{accesoTemasBean.process}" redirect="true">
+    <bendPoints d1Width="-227" d1Height="-100" d2Width="-108" d2Height="-220"/>
+  </links>
+  <links id="pf14268098906660" target="pf14268037019010" source="pf14268037019011" outcome="#{borrarTemaBean.process}" redirect="true"/>
+</pageflow:Pageflow>
