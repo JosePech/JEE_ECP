@@ -1,7 +1,10 @@
 package persistencia.models.entities.utils;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import persistencia.models.entities.Tema;
 
+@XmlRootElement
 public class VotoSummary {
     
     private Tema tema;
