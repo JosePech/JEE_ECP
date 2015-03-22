@@ -2,12 +2,14 @@ package rest;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.junit.After;
@@ -17,17 +19,13 @@ import org.junit.Test;
 
 import persistencia.models.daos.DaoFactory;
 import persistencia.models.daos.TemaDAO;
-import persistencia.models.daos.VotoDAO;
 import persistencia.models.daos.jpa.DaoJpaFactory;
 import persistencia.models.entities.Tema;
-import persistencia.models.entities.Voto;
-import persistencia.models.entities.utils.Escolaridad;
 
 public class TemasRestTest {
     
     private WebTarget wt;
     private TemaDAO dao;
-    private VotoDAO votoDao;
     private Tema tema;
     
     @Test
@@ -42,21 +40,47 @@ public class TemasRestTest {
 
     @Test
     public void deleteTest() {
-        this.tema = new Tema("vacaciones", "Que tanto te gusta Italia?");
-        dao.create(this.tema);
-        
-        votoDao = DaoFactory.getFactory().getVotoDao();        
-        List<Voto> votos = new ArrayList<Voto>(); 
-        votos.add(new Voto(this.tema, 5, Escolaridad.BACHILLERATO, "192.168.1.80"));
-        votos.add(new Voto(this.tema, 7, Escolaridad.SECUNDARIA, "192.168.1.20"));
-        votos.add(new Voto(this.tema, 9, Escolaridad.PRIMARIA, "10.69.43.80"));
-        for(Voto voto : votos){
-            votoDao.create(voto);
-        } 
-        
+        tema = new Tema("vacaciones", "Que tanto te gusta Italia?");
+        dao.create(tema);
+        Response response = wt.path(tema.getId().toString()).queryParam("clave", "666").request().delete();
+        assertEquals(204, response.getStatus());
+    }
+    
+    @Test
+    public void invalidDeleteTest() {
+        tema = new Tema("vacaciones", "Que tanto te gusta Italia?");
+        dao.create(tema);
         Response response = wt.path(tema.getId().toString()).request().delete();
-        assertEquals(response.getStatus(), 204);
-        assertNull(dao.read(tema.getId()));
+        assertEquals(400, response.getStatus());
+    }
+    
+    @Test
+    public void consultarTest() {
+        tema = new Tema("vacaciones", "Que tanto te gusta Italia?");
+        dao.create(tema);
+        WebTarget webTarget = wt;
+        Invocation.Builder invocation = webTarget.request(MediaType.APPLICATION_XML);
+        Response response = invocation.get();
+        List<Tema> list = response.readEntity(new GenericType<List<Tema>>(){});
+        response.close();
+        assertEquals(1, list.size());
+    }
+    
+    @Test
+    public void consultarTestParams() {
+        tema = new Tema("vacaciones", "Que tanto te gusta Italia?");
+        dao.create(tema);
+        Tema tema2 = new Tema("vacaciones", "Que tanto te gusta Paris?");
+        dao.create(tema2);
+        
+        WebTarget webTarget = wt;
+        webTarget = webTarget.queryParam("size", 2).queryParam("start", 1);
+        Invocation.Builder invocation = webTarget.request(MediaType.APPLICATION_XML);
+        Response response = invocation.get();
+        List<Tema> list = response.readEntity(new GenericType<List<Tema>>(){});
+        response.close();
+        assertEquals(1, list.size());
+        dao.deleteById(tema2.getId());
     }
 
     @BeforeClass
@@ -68,13 +92,13 @@ public class TemasRestTest {
     @Before
     public void setUp() throws Exception {
         wt = ClientBuilder.newClient().target("http://localhost:8080/votacionApp/rest").path("Temas");
-        this.dao = DaoFactory.getFactory().getTemaDao();
+        dao = DaoFactory.getFactory().getTemaDao();
     }
 
     @After
     public void tearDown() throws Exception {
         wt = null;
-        this.dao.deleteById(this.tema.getId());
+        dao.deleteById(tema.getId());
     }
 
 }
