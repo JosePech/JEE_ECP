@@ -3,6 +3,9 @@ package persistencia.models.entities;
 import java.io.Serializable;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import persistencia.models.entities.utils.Escolaridad;
 
@@ -11,6 +14,7 @@ import persistencia.models.entities.utils.Escolaridad;
 @NamedQueries({
 @NamedQuery(name = Voto.FIND_ALL_AVG_GROUP_TEMA_ESCOLARIDAD,
 query = "SELECT new persistencia.models.entities.utils.VotoSummary(v.tema, v.escolaridad, COUNT(v), AVG(v.valor) ) FROM Voto v GROUP BY v.escolaridad, v.tema ")})
+@XmlRootElement
 public class Voto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -34,7 +38,7 @@ public class Voto implements Serializable {
     @JoinColumn(foreignKey = @ForeignKey( name="VOTOS_TEMAS_FK", foreignKeyDefinition="FOREIGN KEY (`TEMA_ID`) REFERENCES `miwjee`.`TEMAS` (`ID`) ON DELETE CASCADE ON UPDATE RESTRICT;") )
 	private Tema tema;
     public static final String TEMA_ID = "TEMA_ID";
-	
+    
 	@Id
     @GeneratedValue
     private Integer id;
