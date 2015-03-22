@@ -28,7 +28,6 @@ public class VotosRest {
         try{
             voto.setIp(InetAddress.getLocalHost().getHostAddress());
             DaoFactory.getFactory().getVotoDao().create(voto);
-            System.out.println(voto.getId());
             return Response.status(201).entity(voto).build();
         }catch(Exception e){
             return Response.status(400).entity(voto).build();

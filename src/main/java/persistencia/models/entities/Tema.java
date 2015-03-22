@@ -7,7 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 @Entity
 @Table(name = Tema.TABLE, uniqueConstraints={
   @UniqueConstraint(columnNames = {Tema.NOMBRE, Tema.PREGUNTA})
