@@ -20,27 +20,27 @@ import persistencia.models.entities.utils.VotoSummary;
 
 @Path("/Votos")
 public class VotosRest {
-    
+
     @POST
     @Produces({MediaType.APPLICATION_XML})
     @Consumes(MediaType.APPLICATION_XML)
     public Response create(Voto voto) {
-        try{
+        try {
             voto.setIp(InetAddress.getLocalHost().getHostAddress());
             DaoFactory.getFactory().getVotoDao().create(voto);
             return Response.status(201).entity(voto).build();
-        }catch(Exception e){
+        } catch (Exception e) {
             return Response.status(400).entity(voto).build();
         }
     }
-    
+
     @Path("/consultar")
     @GET
     @Produces({MediaType.APPLICATION_XML})
     public List<VotoSummary> consulta(@DefaultValue("0") @QueryParam("start") int start,
             @DefaultValue("10") @QueryParam("size") int size) {
-        List<VotoSummary> list = DaoFactory.getFactory().getVotoDao().getSummary()
-                .stream().skip(start).limit(size).collect(Collectors.toList());
+        List<VotoSummary> list = DaoFactory.getFactory().getVotoDao().getSummary().stream()
+                .skip(start).limit(size).collect(Collectors.toList());
         return list;
     }
 

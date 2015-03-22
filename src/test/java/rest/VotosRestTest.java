@@ -28,19 +28,23 @@ import persistencia.models.entities.utils.Escolaridad;
 import persistencia.models.entities.utils.VotoSummary;
 
 public class VotosRestTest {
-    
+
     private List<Voto> votos;
+
     private VotoDAO dao;
+
     private TemaDAO temaDao;
+
     private Tema tema;
+
     private WebTarget wt;
-    
+
     @Test
     public void createTest() {
         Voto voto = new Voto(tema, 5, Escolaridad.BACHILLERATO, "127.0.0.0");
         Response response = wt.request().post(Entity.xml(voto));
         voto = response.readEntity(Voto.class);
-        assertEquals(201,response.getStatus());
+        assertEquals(201, response.getStatus());
         assertNotNull(voto.getId());
         assertFalse(voto.getId() == 0);
     }
@@ -50,22 +54,24 @@ public class VotosRestTest {
         WebTarget webTarget = wt.path("consultar");
         Invocation.Builder invocation = webTarget.request(MediaType.APPLICATION_XML);
         Response response = invocation.get();
-        List<VotoSummary> list = response.readEntity(new GenericType<List<VotoSummary>>(){});
+        List<VotoSummary> list = response.readEntity(new GenericType<List<VotoSummary>>() {
+        });
         response.close();
         assertEquals(3, list.size());
     }
-    
+
     @Test
     public void consultarTestParams1() {
         WebTarget webTarget = wt.path("consultar");
         webTarget = webTarget.queryParam("size", 2).queryParam("start", 1);
         Invocation.Builder invocation = webTarget.request(MediaType.APPLICATION_XML);
         Response response = invocation.get();
-        List<VotoSummary> list = response.readEntity(new GenericType<List<VotoSummary>>(){});
+        List<VotoSummary> list = response.readEntity(new GenericType<List<VotoSummary>>() {
+        });
         response.close();
         assertEquals(2, list.size());
     }
-    
+
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         DaoFactory.setFactory(new DaoJpaFactory());
@@ -74,19 +80,20 @@ public class VotosRestTest {
 
     @Before
     public void setUp() throws Exception {
-        wt = ClientBuilder.newClient().target("http://localhost:8080/votacionApp/rest").path("Votos");
+        wt = ClientBuilder.newClient().target("http://localhost:8080/votacionApp/rest")
+                .path("Votos");
         this.temaDao = DaoFactory.getFactory().getTemaDao();
         this.tema = new Tema("vacaciones", "Que tanto te gusta Italia?");
         temaDao.create(this.tema);
-        
-        dao = DaoFactory.getFactory().getVotoDao();        
-        this.votos = new ArrayList<Voto>(); 
+
+        dao = DaoFactory.getFactory().getVotoDao();
+        this.votos = new ArrayList<Voto>();
         votos.add(new Voto(this.tema, 5, Escolaridad.BACHILLERATO, "192.168.1.80"));
         votos.add(new Voto(this.tema, 7, Escolaridad.SECUNDARIA, "192.168.1.20"));
         votos.add(new Voto(this.tema, 9, Escolaridad.PRIMARIA, "10.69.43.80"));
-        for(Voto voto : this.votos){
+        for (Voto voto : this.votos) {
             dao.create(voto);
-        } 
+        }
     }
 
     @After
