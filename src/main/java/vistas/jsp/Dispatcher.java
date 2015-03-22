@@ -22,24 +22,29 @@ import vistas.VotarTemaBean;
 
 @WebServlet("/jsp/*")
 public class Dispatcher extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     private static String PATH_ROOT_VIEW = "/views/jsp/";
+
     private static final String PATH_HOME = "home";
+
     private static final String ACCESO_SESSION_ID = "accesoLista";
+
     private HttpSession session;
+
     private ControllerFactory controller;
 
-	@Override
+    @Override
     public void init() throws ServletException {
-	    controller = ControllerFactory.getFactory();
+        controller = ControllerFactory.getFactory();
         super.init();
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    
-	    String action = request.getPathInfo().substring(1);
-        
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String action = request.getPathInfo().substring(1);
+
         String view;
         switch (action) {
         case AgregarTemaBean.PATH_AGREGAR_TEMA:
@@ -48,7 +53,7 @@ public class Dispatcher extends HttpServlet {
         case AccesoTemasBean.PATH_ACCESO_TEMA:
             view = validarAccesoTemas(request);
             break;
-        case BorrarTemaBean.PATH_BORRAR_TEMA:            
+        case BorrarTemaBean.PATH_BORRAR_TEMA:
             view = validarAccesoTemas(request);
             LogManager.getLogger(Dispatcher.class).debug(view);
             break;
@@ -69,47 +74,48 @@ public class Dispatcher extends HttpServlet {
 
         this.getServletContext().getRequestDispatcher(PATH_ROOT_VIEW + view + ".jsp")
                 .forward(request, response);
-	}
+    }
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    
-	    String action = request.getPathInfo().substring(1);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String action = request.getPathInfo().substring(1);
         String view;
-        
+
         switch (action) {
         case AgregarTemaBean.PATH_AGREGAR_TEMA:
 
             AgregarTemaBean agregarTemaBean = new AgregarTemaBean(controller);
             agregarTemaBean.setTemaPregunta(request.getParameter("pregunta"));
             agregarTemaBean.setTemaNombre(request.getParameter("nombre"));
-            
+
             request.setAttribute("TemaBean", agregarTemaBean);
             view = agregarTemaBean.process();
             break;
         case AccesoTemasBean.PATH_ACCESO_TEMA:
             session = request.getSession(true);
-            
+
             AccesoTemasBean accesoTemasBean = new AccesoTemasBean();
             accesoTemasBean.setClave(request.getParameter("clave"));
-            view = accesoTemasBean.process();            
-            if(accesoTemasBean.getAccesoDenegado() == 0){
+            view = accesoTemasBean.process();
+            if (accesoTemasBean.getAccesoDenegado() == 0) {
                 session.setAttribute(ACCESO_SESSION_ID, 1);
                 request.setAttribute("BorrarTemaBean", new BorrarTemaBean(controller));
-            }else{
+            } else {
                 session.setAttribute(ACCESO_SESSION_ID, 0);
                 request.setAttribute("AccesoTemaBean", accesoTemasBean);
             }
             break;
-        case BorrarTemaBean.PATH_BORRAR_TEMA:              
+        case BorrarTemaBean.PATH_BORRAR_TEMA:
             session = request.getSession(true);
             Integer acceso = Converter.parseInt(session.getAttribute(ACCESO_SESSION_ID));
-            if(acceso != null && acceso == 1){
+            if (acceso != null && acceso == 1) {
                 BorrarTemaBean borrarTemaBean = new BorrarTemaBean(controller);
                 borrarTemaBean.setAccesoDenegado(acceso);
                 borrarTemaBean.setTemaId2(request.getParameter("temaId2"));
                 view = borrarTemaBean.process();
                 request.setAttribute("BorrarTemaBean", borrarTemaBean);
-            }else{
+            } else {
                 view = AccesoTemasBean.PATH_ACCESO_TEMA;
             }
             break;
@@ -124,31 +130,31 @@ public class Dispatcher extends HttpServlet {
             VotarTemaBean votarTemaBean = new VotarTemaBean(controller);
             votarTemaBean.setTemaId(request.getParameter("id"));
             votarTemaBean.setEscolaridad(request.getParameter("escolaridad"));
-            votarTemaBean.setVoto(request.getParameter("voto"));            
+            votarTemaBean.setVoto(request.getParameter("voto"));
             request.setAttribute("VotarTemaBean", votarTemaBean);
             request.setAttribute("TemasVotoBean", new TemasVotoBean(controller));
             view = votarTemaBean.process();
-            break;            
+            break;
         default:
             view = PATH_HOME;
         }
-        
+
         this.getServletContext().getRequestDispatcher(PATH_ROOT_VIEW + view + ".jsp")
                 .forward(request, response);
-	}
-	
-	private String validarAccesoTemas(HttpServletRequest request){
-	    session = request.getSession(true);
+    }
+
+    private String validarAccesoTemas(HttpServletRequest request) {
+        session = request.getSession(true);
         Integer acceso = Converter.parseInt(session.getAttribute(ACCESO_SESSION_ID));
-        
-        if(acceso != null && acceso == 1){      
+
+        if (acceso != null && acceso == 1) {
             BorrarTemaBean borrarTemaBean = new BorrarTemaBean(controller);
             borrarTemaBean.setAccesoDenegado(acceso);
             request.setAttribute("BorrarTemaBean", borrarTemaBean);
             return BorrarTemaBean.PATH_BORRAR_TEMA;
-        }else{
+        } else {
             return AccesoTemasBean.PATH_ACCESO_TEMA;
-        }	
-	}
+        }
+    }
 
 }

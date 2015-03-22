@@ -20,41 +20,41 @@ import persistencia.models.entities.Tema;
 
 @Path("/Temas")
 public class TemasRest {
-    
+
     @POST
     @Produces({MediaType.APPLICATION_XML})
     @Consumes(MediaType.APPLICATION_XML)
     public Response create(Tema tema) {
-        try{
+        try {
             DaoFactory.getFactory().getTemaDao().create(tema);
             return Response.status(201).entity(tema).build();
-        }catch(Exception e){
+        } catch (Exception e) {
             return Response.status(400).entity(tema).build();
         }
     }
-    
+
     @Path("{id}")
     @DELETE
     @Produces({MediaType.APPLICATION_XML})
     public Response delete(@PathParam("id") Integer id, @QueryParam("clave") String clave) {
-        try{
-            if(clave.equals("666")){
+        try {
+            if (clave.equals("666")) {
                 DaoFactory.getFactory().getTemaDao().deleteById(id);
                 return Response.noContent().build();
-            }else{
+            } else {
                 return Response.status(400).build();
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             return Response.status(400).build();
         }
     }
-    
+
     @GET
     @Produces({MediaType.APPLICATION_XML})
     public List<Tema> consulta(@DefaultValue("0") @QueryParam("start") int start,
             @DefaultValue("10") @QueryParam("size") int size) {
-        List<Tema> list = DaoFactory.getFactory().getTemaDao().findAll()
-                .stream().skip(start).limit(size).collect(Collectors.toList());
+        List<Tema> list = DaoFactory.getFactory().getTemaDao().findAll().stream().skip(start)
+                .limit(size).collect(Collectors.toList());
         return list;
     }
 

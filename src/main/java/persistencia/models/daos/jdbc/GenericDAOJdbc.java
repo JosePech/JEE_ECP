@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 
 import persistencia.models.daos.GenericDAO;
 
-public abstract class GenericDAOJdbc <T, ID> implements GenericDAO<T, ID> {
+public abstract class GenericDAOJdbc<T, ID> implements GenericDAO<T, ID> {
 
     protected static final String SQL_SELECT_ID = "SELECT * FROM %s WHERE ID=%d";
 

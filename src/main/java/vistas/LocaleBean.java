@@ -6,7 +6,7 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean
 @SessionScoped
 public class LocaleBean {
-    
+
     private String language;
 
     public String getLanguage() {
@@ -16,8 +16,8 @@ public class LocaleBean {
     public void setLanguage(String language) {
         this.language = language;
     }
-    
-    public void process(){        
+
+    public void process() {
     }
-    
+
 }

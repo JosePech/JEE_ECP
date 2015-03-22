@@ -1,7 +1,7 @@
 package utils;
 
 public class Converter {
-    
+
     public static Integer parseInt(Object str) {
         Integer n = null;
         try {
@@ -10,6 +10,5 @@ public class Converter {
         }
         return n;
     }
-
 
 }

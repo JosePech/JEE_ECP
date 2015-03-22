@@ -15,19 +15,19 @@ import utils.Converter;
 
 @ManagedBean
 @RequestScoped
-public class BorrarTemaBean{
+public class BorrarTemaBean {
 
     @ManagedProperty(value = "#{controllerFactoryEjbs}")
     private ControllerFactory controller;
-    
+
     @ManagedProperty(value = "#{accesoTemasBean}")
     private AccesoTemasBean accesoBean;
-    
+
     @PostConstruct
     public void update() {
         accesoDenegado = accesoBean.getAccesoDenegado();
     }
-    
+
     public AccesoTemasBean getAccesoBean() {
         return accesoBean;
     }
@@ -37,20 +37,20 @@ public class BorrarTemaBean{
     }
 
     private Integer accesoDenegado;
-    
+
     private String temaId2;
-    
+
     private boolean result;
-    
+
     private List<Tema> temas;
-    
+
     public static final String PATH_BORRAR_TEMA = "borrarTema";
-    
-    public BorrarTemaBean(ControllerFactory factory){
+
+    public BorrarTemaBean(ControllerFactory factory) {
         this.controller = factory;
     }
-    
-    public BorrarTemaBean(){
+
+    public BorrarTemaBean() {
     }
 
     public ControllerFactory getController() {
@@ -68,43 +68,43 @@ public class BorrarTemaBean{
     public void setTemaId2(String temaId) {
         this.temaId2 = temaId;
     }
-    
-    public String process(){
-        if(accesoDenegado == null || accesoDenegado == -1){
+
+    public String process() {
+        if (accesoDenegado == null || accesoDenegado == -1) {
             return AccesoTemasBean.PATH_ACCESO_TEMA;
         }
-        try{
+        try {
             this.setResult(validarDatos());
-            if(this.getResult()){
+            if (this.getResult()) {
                 Tema tema = new Tema();
                 tema.setId(Converter.parseInt(temaId2));
                 controller.getBorrarTemaController().borrar(tema);
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             this.setResult(false);
             LogManager.getLogger(BorrarTemaBean.class).debug(e.getMessage());
         }
         this.resetBean();
         return PATH_BORRAR_TEMA;
     }
-    
-    public void fetchTemas(){
+
+    public void fetchTemas() {
         this.setTemas(controller.getBorrarTemaController().getTemas());
     }
-    
-    private void resetBean(){
+
+    private void resetBean() {
         this.setTemaId2(null);
     }
-    
-    private boolean validarDatos(){
+
+    private boolean validarDatos() {
         return temaId2 != null;
     }
-    
-    private void setResult(boolean result){
+
+    private void setResult(boolean result) {
         this.result = result;
     }
-    
-    public boolean getResult(){
+
+    public boolean getResult() {
         return this.result;
     }
 

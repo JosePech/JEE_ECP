@@ -9,15 +9,15 @@ public abstract class DaoFactory {
         DaoFactory.factory = factory;
     }
 
-    public static DaoFactory getFactory() {        
-        if(factory == null){
+    public static DaoFactory getFactory() {
+        if (factory == null) {
             factory = new DaoJpaFactory();
         }
         return factory;
     }
 
     public abstract TemaDAO getTemaDao();
-    
+
     public abstract VotoDAO getVotoDao();
-    
+
 }

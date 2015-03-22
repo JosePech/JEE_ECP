@@ -12,7 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import persistencia.models.daos.GenericDAO;
 
 public abstract class GenericDaoJpa<T, ID> implements GenericDAO<T, ID> {
-    
+
     protected Class<T> persistentClass;
 
     public GenericDaoJpa(Class<T> persistentClass) {

@@ -13,32 +13,32 @@ import controladores.ControllerFactory;
 
 @ManagedBean
 public class ConsultarVotosBean {
-    
+
     @ManagedProperty(value = "#{controllerFactoryEjbs}")
     private ControllerFactory controller;
-    
+
     private ConsultarController consultarController;
-    
+
     public static final String PATH_CONSULTAR_VOTOS = "consultarVotos";
 
     public ConsultarVotosBean(ControllerFactory controller) {
         this.controller = controller;
         consultarController = this.controller.getConsultarController();
     }
-    
-    public ConsultarVotosBean() {        
+
+    public ConsultarVotosBean() {
     }
-    
+
     @PostConstruct
-    public void update () {
+    public void update() {
         this.consultarController = controller.getConsultarController();
     }
-    
-    public List<VotoSummary> getResumen(){
+
+    public List<VotoSummary> getResumen() {
         return consultarController.consultar();
     }
 
-    public Long getTotalPorTema(Tema tema){
+    public Long getTotalPorTema(Tema tema) {
         return consultarController.getTotalTema(tema);
     }
 

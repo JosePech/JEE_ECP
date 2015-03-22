@@ -15,23 +15,23 @@ import controladores.ControllerFactory;
 public class TemasVotoBean {
 
     public static final String PATH_TEMAS_VOTOS = "temasVoto";
-    
+
     @ManagedProperty(value = "#{controllerFactoryEjbs}")
     private ControllerFactory controller;
-    
+
     private List<Tema> temas;
-    
+
     private Tema tema;
-    
+
     private String temaId;
-    
+
     private boolean result;
-    
-    public TemasVotoBean(ControllerFactory controller){
+
+    public TemasVotoBean(ControllerFactory controller) {
         this.controller = controller;
     }
-    
-    public TemasVotoBean(){
+
+    public TemasVotoBean() {
     }
 
     public ControllerFactory getController() {
@@ -43,7 +43,7 @@ public class TemasVotoBean {
     }
 
     public List<Tema> getTemas() {
-        if(temas == null){
+        if (temas == null) {
             this.setTemas(controller.getVotarController().getTemas());
         }
         return temas;
@@ -52,30 +52,30 @@ public class TemasVotoBean {
     private void setTemas(List<Tema> temas) {
         this.temas = temas;
     }
-    
-    public String process(){
-        try{
+
+    public String process() {
+        try {
             this.setResult(validarDatos());
-            if(isResult()){
+            if (isResult()) {
                 Tema buscarTema = new Tema();
                 buscarTema.setId(Converter.parseInt(getTemaId()));
                 setTema(getTemas().get(getTemas().indexOf(buscarTema)));
                 return VotarTemaBean.PATH_VOTAR_TEMA;
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             this.setResult(false);
             LogManager.getLogger(TemasVotoBean.class).debug(e.getMessage());
-        }finally{
+        } finally {
             resetBean();
         }
         return PATH_TEMAS_VOTOS;
     }
-    
+
     private void resetBean() {
         setTemaId(null);
     }
 
-    private boolean validarDatos(){
+    private boolean validarDatos() {
         return Converter.parseInt(getTemaId()) != null;
     }
 

@@ -19,8 +19,9 @@ public class TemaDAOJdbc extends GenericDAOJdbc<Tema, Integer> implements TemaDA
         Tema tema;
         try {
             if (resultSet != null && resultSet.next()) {
-                tema = new Tema(resultSet.getString(Tema.NOMBRE), resultSet.getString(Tema.PREGUNTA));
-                tema.setId(resultSet.getInt(Tema.ID));                
+                tema = new Tema(resultSet.getString(Tema.NOMBRE),
+                        resultSet.getString(Tema.PREGUNTA));
+                tema.setId(resultSet.getInt(Tema.ID));
                 return tema;
             }
         } catch (SQLException e) {
@@ -33,8 +34,8 @@ public class TemaDAOJdbc extends GenericDAOJdbc<Tema, Integer> implements TemaDA
             + "%s VARCHAR(255), PRIMARY KEY (%s) )";
 
     public static String sqlToCreateTable() {
-        return String
-                .format(SQL_CREATE_TABLE, Tema.TABLE, Tema.ID, Tema.NOMBRE, Tema.PREGUNTA, Tema.ID);
+        return String.format(SQL_CREATE_TABLE, Tema.TABLE, Tema.ID, Tema.NOMBRE, Tema.PREGUNTA,
+                Tema.ID);
     }
 
     private static final String SQL_INSERT = "INSERT INTO %s (%s,%s) VALUES ('%s','%s')";
@@ -43,8 +44,9 @@ public class TemaDAOJdbc extends GenericDAOJdbc<Tema, Integer> implements TemaDA
     public void create(Tema tema) {
         assert tema.getNombre() != null;
         assert tema.getPregunta() != null;
-        
-        this.updateSql(String.format(SQL_INSERT, Tema.TABLE, Tema.NOMBRE, Tema.PREGUNTA, tema.getNombre(), tema.getPregunta()));
+
+        this.updateSql(String.format(SQL_INSERT, Tema.TABLE, Tema.NOMBRE, Tema.PREGUNTA,
+                tema.getNombre(), tema.getPregunta()));
         tema.setId(this.autoId());
     }
 
@@ -60,15 +62,15 @@ public class TemaDAOJdbc extends GenericDAOJdbc<Tema, Integer> implements TemaDA
     public void update(Tema tema) {
         assert tema.getNombre() != null;
         assert tema.getPregunta() != null;
-            
-        this.updateSql(String.format(SQL_UPDATE, Tema.TABLE, Tema.NOMBRE, tema.getNombre(), Tema.PREGUNTA,
-                tema.getPregunta(), tema.getId()));        
+
+        this.updateSql(String.format(SQL_UPDATE, Tema.TABLE, Tema.NOMBRE, tema.getNombre(),
+                Tema.PREGUNTA, tema.getPregunta(), tema.getId()));
     }
 
     @Override
     public void deleteById(Integer id) {
         Tema tema = this.read(id);
-        if (tema != null) {            
+        if (tema != null) {
             this.updateSql(String.format(SQL_DELETE_ID, Tema.TABLE, id));
         }
     }

@@ -19,7 +19,8 @@ public class VotoDaoJpa extends GenericDaoJpa<Voto, Integer> implements VotoDAO 
     public List<VotoSummary> getSummary() {
         EntityManager entityManager = DaoJpaFactory.getEntityManagerFactory().createEntityManager();
         // Se crea un criterio de consulta
-        TypedQuery<VotoSummary> query = entityManager.createNamedQuery(Voto.FIND_ALL_AVG_GROUP_TEMA_ESCOLARIDAD, VotoSummary.class);
+        TypedQuery<VotoSummary> query = entityManager.createNamedQuery(
+                Voto.FIND_ALL_AVG_GROUP_TEMA_ESCOLARIDAD, VotoSummary.class);
         List<VotoSummary> result = query.getResultList();
         entityManager.close();
         return result;

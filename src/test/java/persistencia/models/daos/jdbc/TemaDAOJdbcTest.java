@@ -15,8 +15,9 @@ import persistencia.models.entities.Tema;
 public class TemaDAOJdbcTest {
 
     private Tema tema;
+
     private TemaDAO dao;
-    
+
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         DaoFactory.setFactory(new DaoJdbcFactory());
@@ -39,7 +40,7 @@ public class TemaDAOJdbcTest {
     public void testRead() {
         assertEquals(this.tema, dao.read(tema.getId()));
     }
-    
+
     @Test
     public void testUpdate() {
         tema.setNombre("Viajes");
@@ -49,13 +50,13 @@ public class TemaDAOJdbcTest {
         assertEquals(tema.getNombre(), temaUpdated.getNombre());
         assertEquals(tema.getPregunta(), temaUpdated.getPregunta());
     }
-    
+
     @Test
     public void testDeleteById() {
         dao.deleteById(tema.getId());
-        assertNull( dao.read(tema.getId()));
+        assertNull(dao.read(tema.getId()));
     }
-    
+
     @Test
     public void testFindAll() {
         dao.create(new Tema("Colores", "Cual es tu color favorito?"));

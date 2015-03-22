@@ -16,12 +16,13 @@ import org.junit.Test;
 import persistencia.models.entities.utils.Escolaridad;
 
 public class UtilsRestTest {
-    
+
     private WebTarget wt;
 
     @Before
     public void setUp() throws Exception {
-        wt = ClientBuilder.newClient().target("http://localhost:8080/votacionApp/rest").path("Utils");
+        wt = ClientBuilder.newClient().target("http://localhost:8080/votacionApp/rest")
+                .path("Utils");
     }
 
     @After
@@ -34,7 +35,8 @@ public class UtilsRestTest {
         WebTarget webTarget = wt.path("escolaridad");
         Invocation.Builder invocation = webTarget.request(MediaType.APPLICATION_XML);
         Response response = invocation.get();
-        Escolaridad[] list = response.readEntity(new GenericType<Escolaridad[]>(){});
+        Escolaridad[] list = response.readEntity(new GenericType<Escolaridad[]>() {
+        });
         response.close();
         assertEquals(4, list.length);
     }

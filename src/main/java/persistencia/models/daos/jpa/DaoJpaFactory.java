@@ -12,11 +12,12 @@ import persistencia.models.daos.DaoFactory;
 import persistencia.models.daos.TemaDAO;
 import persistencia.models.daos.VotoDAO;
 
-public class DaoJpaFactory extends DaoFactory{
-    
+public class DaoJpaFactory extends DaoFactory {
+
     private static final String PERSISTENCE_UNIT = "VotacionApp";
+
     private static EntityManagerFactory entityManagerFactory = null;
-    
+
     public static EntityManagerFactory getEntityManagerFactory() {
         if (entityManagerFactory == null) {
             entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
@@ -35,8 +36,8 @@ public class DaoJpaFactory extends DaoFactory{
     public TemaDAO getTemaDao() {
         return new TemaDaoJpa();
     }
-    
-    @Override    
+
+    @Override
     public VotoDAO getVotoDao() {
         return new VotoDaoJpa();
     }

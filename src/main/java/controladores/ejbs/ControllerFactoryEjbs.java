@@ -12,10 +12,10 @@ import controladores.VotarController;
 @ManagedBean
 @ApplicationScoped
 public class ControllerFactoryEjbs extends ControllerFactory {
-    
+
     @Override
     public VotarController getVotarController() {
-        return new VotarControllerEjbs(); 
+        return new VotarControllerEjbs();
     }
 
     @Override
@@ -32,4 +32,4 @@ public class ControllerFactoryEjbs extends ControllerFactory {
     public BorrarTemaController getBorrarTemaController() {
         return new BorrarControllerEjbs();
     }
- }
+}

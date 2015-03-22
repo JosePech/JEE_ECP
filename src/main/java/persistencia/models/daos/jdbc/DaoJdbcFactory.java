@@ -14,7 +14,7 @@ import persistencia.models.entities.Tema;
 import persistencia.models.entities.Voto;
 
 public class DaoJdbcFactory extends DaoFactory {
-    
+
     private static final String DRIVER = "com.mysql.jdbc.Driver";
 
     private static final String URL = "jdbc:mysql://localhost:3306/miwjee";
@@ -61,6 +61,6 @@ public class DaoJdbcFactory extends DaoFactory {
 
     @Override
     public VotoDAO getVotoDao() {
-        throw new UnsupportedOperationException("JDBC No soporta el manejo de votos"); 
+        throw new UnsupportedOperationException("JDBC No soporta el manejo de votos");
     }
 }
