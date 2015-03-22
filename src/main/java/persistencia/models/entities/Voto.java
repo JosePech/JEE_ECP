@@ -2,19 +2,26 @@ package persistencia.models.entities;
 
 import java.io.Serializable;
 
-import javax.persistence.*;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.ForeignKey;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import persistencia.models.entities.utils.Escolaridad;
-
+@XmlRootElement
 @Entity
 @Table(name = Voto.TABLE )
 @NamedQueries({
 @NamedQuery(name = Voto.FIND_ALL_AVG_GROUP_TEMA_ESCOLARIDAD,
 query = "SELECT new persistencia.models.entities.utils.VotoSummary(v.tema, v.escolaridad, COUNT(v), AVG(v.valor) ) FROM Voto v GROUP BY v.escolaridad, v.tema ")})
-@XmlRootElement
 public class Voto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -66,7 +73,11 @@ public class Voto implements Serializable {
     public void setEscolaridad(Escolaridad escolaridad) {
         this.escolaridad = escolaridad;
     }
-
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    
     public Integer getId() {
         return id;
     }

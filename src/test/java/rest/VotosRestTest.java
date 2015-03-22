@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
@@ -33,6 +34,16 @@ public class VotosRestTest {
     private TemaDAO temaDao;
     private Tema tema;
     private WebTarget wt;
+    
+    @Test
+    public void createTest() {
+        Voto voto = new Voto(tema, 5, Escolaridad.BACHILLERATO, "127.0.0.0");
+        Response response = wt.request().post(Entity.xml(voto));
+        voto = response.readEntity(Voto.class);
+        assertEquals(201,response.getStatus());
+        assertNotNull(voto.getId());
+        assertFalse(voto.getId() == 0);
+    }
 
     @Test
     public void consultarTest() {
