@@ -44,16 +44,14 @@ public class TemasRestTest {
     public void deleteTest() {
         tema = new Tema("vacaciones", "Que tanto te gusta Italia?");
         dao.create(tema);
-        Response response = wt.path(tema.getId().toString()).queryParam("clave", "666").request()
+        Response response = wt.path(tema.getId().toString()).request()
                 .delete();
         assertEquals(204, response.getStatus());
     }
 
     @Test
     public void invalidDeleteTest() {
-        tema = new Tema("vacaciones", "Que tanto te gusta Italia?");
-        dao.create(tema);
-        Response response = wt.path(tema.getId().toString()).request().delete();
+        Response response = wt.path("-1").request().delete();
         assertEquals(400, response.getStatus());
     }
 

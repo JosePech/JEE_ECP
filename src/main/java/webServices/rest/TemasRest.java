@@ -21,6 +21,8 @@ import webServices.TemaUris;
 
 @Path(TemaUris.PATH_TEMAS)
 public class TemasRest {
+    
+    public static final String PARAM_ID  = "id";
 
     @POST
     @Produces({MediaType.APPLICATION_XML})
@@ -37,14 +39,10 @@ public class TemasRest {
     @Path(TemaUris.PATH_ID_PARAM)
     @DELETE
     @Produces({MediaType.APPLICATION_XML})
-    public Response delete(@PathParam("id") Integer id, @QueryParam("clave") String clave) {
+    public Response delete(@PathParam(PARAM_ID) Integer id) {
         try {
-            if (clave.equals("666")) {
-                DaoFactory.getFactory().getTemaDao().deleteById(id);
-                return Response.noContent().build();
-            } else {
-                return Response.status(400).build();
-            }
+            DaoFactory.getFactory().getTemaDao().deleteById(id);
+            return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(400).build();
         }
