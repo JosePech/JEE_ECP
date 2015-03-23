@@ -1,4 +1,4 @@
-package rest;
+package webServices.rest;
 
 import static org.junit.Assert.*;
 
