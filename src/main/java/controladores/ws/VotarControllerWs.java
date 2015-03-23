@@ -1,23 +1,25 @@
 package controladores.ws;
 
-import java.util.List;
+import javax.ws.rs.core.GenericType;
 
-import persistencia.models.entities.Tema;
 import persistencia.models.entities.Voto;
+import persistencia.models.entities.utils.Escolaridad;
+import webServices.UtilUris;
+import webServices.VotoUris;
 import controladores.VotarController;
 
-public class VotarControllerWs implements VotarController {
-
-    @Override
-    public List<Tema> getTemas() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+public class VotarControllerWs extends TemasControllerWs implements VotarController {
 
     @Override
     public void votar(Voto voto) {
-        // TODO Auto-generated method stub
-
+        assert voto != null;
+        ControllerWs.buildWebServiceManager(VotoUris.PATH_VOTOS).create(voto);
     }
 
+    @Override
+    public Escolaridad[] getEscolaridadValues() {
+        return ControllerWs.buildWebServiceManager(UtilUris.PATH_UTILS, UtilUris.PATH_ESCOLARIDAD)
+                .entities(new GenericType<Escolaridad[]>() {
+                });
+    }
 }

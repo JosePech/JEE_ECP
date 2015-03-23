@@ -81,7 +81,7 @@ public class VotarTemaBean implements Serializable {
     }
 
     public Escolaridad[] getEscolaridadValues() {
-        return Escolaridad.values();
+        return controller.getVotarController().getEscolaridadValues();
     }
 
     private void setResult(int result) {

@@ -1,7 +1,5 @@
 package controladores.ws;
 
-import java.util.List;
-
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
@@ -116,8 +114,8 @@ public class WsManager {
         return result;
     }
 
-    public <T> List<T> entities(GenericType<List<T>> genericType) {
-        List<T> result = null;
+    public <T> T entities(GenericType<T> genericType) {
+        T result = null;
         if (this.getResponse().hasEntity()) {
             result = this.getResponse().readEntity(genericType);
         }
