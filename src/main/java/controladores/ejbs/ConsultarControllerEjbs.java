@@ -15,7 +15,8 @@ public class ConsultarControllerEjbs extends ConsultarController {
     public List<VotoSummary> consultar() {
         List<VotoSummary> votosRegistrados = DaoFactory.getFactory().getVotoDao().getSummary();
         List<Tema> temas = DaoFactory.getFactory().getTemaDao().findAll();
-        return this.llenarRegistrosVacios(temas, votosRegistrados);
+        this.summary = this.llenarRegistrosVacios(temas, votosRegistrados); 
+        return summary;
     }
 
     @Override
