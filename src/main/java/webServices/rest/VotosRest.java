@@ -1,4 +1,4 @@
-package rest;
+package webServices.rest;
 
 import java.net.InetAddress;
 import java.util.List;
@@ -17,8 +17,9 @@ import javax.ws.rs.core.Response;
 import persistencia.models.daos.DaoFactory;
 import persistencia.models.entities.Voto;
 import persistencia.models.entities.utils.VotoSummary;
+import webServices.VotoUris;
 
-@Path("/Votos")
+@Path(VotoUris.PATH_VOTOS)
 public class VotosRest {
 
     @POST
@@ -34,7 +35,7 @@ public class VotosRest {
         }
     }
 
-    @Path("/consultar")
+    @Path(VotoUris.PATH_CONSULTAR)
     @GET
     @Produces({MediaType.APPLICATION_XML})
     public List<VotoSummary> consulta(@DefaultValue("0") @QueryParam("start") int start,

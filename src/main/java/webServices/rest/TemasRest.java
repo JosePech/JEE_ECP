@@ -1,4 +1,4 @@
-package rest;
+package webServices.rest;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,8 +17,9 @@ import javax.ws.rs.core.Response;
 
 import persistencia.models.daos.DaoFactory;
 import persistencia.models.entities.Tema;
+import webServices.TemaUris;
 
-@Path("/Temas")
+@Path(TemaUris.PATH_TEMAS)
 public class TemasRest {
 
     @POST
@@ -33,7 +34,7 @@ public class TemasRest {
         }
     }
 
-    @Path("{id}")
+    @Path(TemaUris.PATH_ID_PARAM)
     @DELETE
     @Produces({MediaType.APPLICATION_XML})
     public Response delete(@PathParam("id") Integer id, @QueryParam("clave") String clave) {
